@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="   
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd   
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd   
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 数据库连接池 -->
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:resources/*.properties" />
+	<!-- 数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${uname}" />
+		<property name="password" value="${password}" />
+		<property name="initialSize" value="${initialSize}" /><!-- 初始化连接数量 
+			5 -->
+		<property name="maxActive" value="${maxActive}" /><!-- 连接最大活跃数量 
+			100 -->
+		<property name="maxIdle" value="${maxIdle}" /><!-- 连接最大空闲数量 50 -->
+		<property name="minIdle" value="${minIdle}" /><!-- 连接最小活跃数量 10 -->
+
+		<property name="maxWait" value="${maxWait}" /><!-- 连接最大 等待时间 100 -->
+		<!-- removeAbandonedTimeout 回收空闲连接的间隔时间 -->
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+		<!--removeAbandoned 开启空闲连接回收机制， 当前空闲连接数 小于 2 &&（当前活动数>最大活动数3） -->
+		<property name="removeAbandoned" value="${removeAbandoned}" />
+
+
+		<!--=================== sql心跳：保证连接池中链接是真实有效的连接 ========================= -->
+
+		<!-- 指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除. -->
+		<property name="testWhileIdle" value="true" />
+
+		<!-- 每30秒运行一次空闲连接回收器，配置timeBetweenEvictionRunsMillis = "30000"后， 每30秒运行一次空闲连接回收器（独立线程）。并每次检查3个连接， 
+			如果连接空闲时间超过30分钟就销毁。销毁连接后，连接数量就少了， 如果小于minIdle(最小空闲数)数量， 就新建连接，维护数量不少于minIdle(最小空闲)，新老更替。 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 借出连接时不要测试，否则很影响性能。一定要配置， 因为它的默认值是true。false表示每次从连接池中取出连接时， 不需要执行validationQuery 
+			= "SELECT 1" 中的SQL进行测试。 若配置为true,对性能有非常大的影响，性能会下降7-10倍。 -->
+		<property name="testOnBorrow" value="false" />
+
+		<!-- 在进行returnwObject处理时 会对拿到的连接进行效验false -->
+		<property name="testOnReturn" value="false" />
+
+		<!-- 效验使用的sql语句 validationQuery 复杂的效验sql影响性能 -->
+		<property name="validationQuery" value="select 1" />
+
+		<!-- 配置每次效验连接的数量 一般等于maxActive -->
+		<property name="numTestsPerEvictionRun" value="${maxActive}" />
+	</bean>
+
+
+
+
+	<!-- 配置sqlsessionFactory   有了会话工厂就能得到一个 session会话 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
+	</bean>
+
+
+
+	
+	
+	<!-- 配置Mapper扫描包  s扫描接口  和xml生产代理对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	 <property name="basePackage" value="com.jubao.mapper"></property>
+	</bean>
+	
+</beans>
