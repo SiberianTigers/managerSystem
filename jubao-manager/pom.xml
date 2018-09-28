@@ -18,10 +18,6 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>taotao-manager-pojo</module>
-		<module>taotao-manager-mapper</module>
-		<module>taotao-manager-service</module>
-		<module>taotao-manager-web</module>
 		<module>jubao-manager-pojo</module>
 		<module>jubao-manager-mapper</module>
 		<module>jubao-manager-service</module>
