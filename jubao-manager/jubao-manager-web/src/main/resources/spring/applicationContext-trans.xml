@@ -10,20 +10,20 @@
 	
 		<!-- 配置事务管理对象 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-       <!-- 引用   applicationContext-dao.xml  中的 dataSource数据源 -->
+     <!-- 引用   applicationContext-dao.xml  中的 dataSource数据源 -->
        <property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
 	<!-- 声明式事务 -->
 	 <aop:config >
-	  <!-- 切入点 -->
+	 	  <!-- 切入点 -->
 	   <aop:pointcut expression="execution(* com.jubao.service.*.*(..))" id="pointcutid"/>
 	   <aop:advisor advice-ref="adviceid" pointcut-ref="pointcutid"/> 
 	 </aop:config>
-	 <!-- 声明式事务 -->
+ <!-- 声明式事务 -->
 	 <tx:advice transaction-manager="transactionManager" id="adviceid">
 	  <tx:attributes>
-	  <!-- 传播行为 -->
+	 <!-- 传播行为 -->
 	       <!--REQUIRED  如果当前存在事务，就在当前事务中执行，如果没事务，就开启一个事务  -->
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="insert*" propagation="REQUIRED" />

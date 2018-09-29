@@ -21,6 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 
   </head>
+
+<%
+  response.sendRedirect("/manager/index");
+ %>
   
   <body>
     This is my JSP page.后台管理系统 <br>
