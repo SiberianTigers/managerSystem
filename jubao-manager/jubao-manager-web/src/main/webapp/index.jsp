@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
 <%
-  response.sendRedirect("/manager/index");
+  response.sendRedirect("/manager/login");
  %>
   
   <body>

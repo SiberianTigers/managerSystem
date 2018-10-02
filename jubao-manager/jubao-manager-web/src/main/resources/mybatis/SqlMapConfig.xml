@@ -12,7 +12,7 @@
 
 <typeAliases>
   <!-- 实体类取别名    方便在mapper中使用 -->
-  <package name="com.manager.pojo"/>
+  <package name="com.jubao.pojo"/>
 </typeAliases>
   
   <!--分页插件-->
