@@ -37,6 +37,26 @@ public class IndexController {
 		return "home";
 	}
 
-	
+	/***
+	 * 跳转到商品分类管理界面
+	 * @return
+	 */
+	 @RequestMapping("/Category_Manage")
+	public String toCategoryType(){
+		
+		
+		return "Category_Manage";
+	}
+	/***
+	 * 跳转到商品分类添加
+	 */
+	 @RequestMapping("product-category-add")
+	 public String toCategoryTypeAdd(){
+		 
+		 
+		 
+		 return "product-category-add";
+	 }
+	 
 	
 }

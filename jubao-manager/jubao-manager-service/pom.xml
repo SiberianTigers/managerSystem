@@ -9,8 +9,8 @@
 <!-- 依赖管理 -->
 	<dependencies>
 		<dependency>
-			<groupId>com.taotao</groupId>
-			<artifactId>taotao-manager-mapper</artifactId>
+			<groupId>com.jubao</groupId>
+			<artifactId>jubao-manager-mapper</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Spring -->

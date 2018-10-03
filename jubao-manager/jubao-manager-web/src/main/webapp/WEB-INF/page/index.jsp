@@ -11,27 +11,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link href="/statics/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="/statics/assets/css/font-awesome.min.css" />
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="/statics/assets/css/font-awesome-ie7.min.css" />
-		<![endif]-->
 		<link rel="stylesheet" href="/statics/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="/statics/assets/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="/statics/assets/css/ace-skins.min.css" />
         <link rel="stylesheet" href="/statics/css/style.css"/>
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="/statics/assets/css/ace-ie.min.css" />
-		<![endif]-->
-		<script src="/statics/assets/js/ace-extra.min.js"></script>
-		<!--[if lt IE 9]>
-		<script src="/statics/assets/js/html5shiv.js"></script>
-		<script src="/statics/assets/js/respond.min.js"></script>
-		<![endif]-->
-        <!--[if !IE]> -->
+
+
+
+        <script src="/statics/assets/js/ace-extra.min.js"></script>
+
+
 		<script src="/statics/js/jquery-1.9.1.min.js"></script>        
-		<!-- <![endif]-->
-		<!--[if IE]>
-         <script type="text/javascript">window.jQuery || document.write("<script src='/statics/assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");</script>
-        <![endif]-->
+
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='/statics/assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
 		</script>
@@ -46,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="/statics/assets/laydate/laydate.js" type="text/javascript"></script>
         <script src="/statics/js/jquery.nicescroll.js" type="text/javascript"></script>
         
+
 <script type="text/javascript">	
  $(function(){ 
  var cid = $('#nav_list> li>.submenu');
@@ -366,10 +358,7 @@ function link_operating(name,title){
 				     <li class="home"><a href="javascript:void(0)" name="home.html" class="iframeurl" title=""><i class="icon-home"></i><span class="menu-text"> 系统首页 </span></a></li>
                      <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 产品管理 </span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
-                         <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="产品类表" class="iframeurl"><i class="icon-double-angle-right"></i>产品类表</a></li>
-						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html" title="品牌管理"  class="iframeurl"><i class="icon-double-angle-right"></i>品牌管理</a></li>
-						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
-
+						 <li class="home"><a href="javascript:void(0)" name="/itemCategory/Category_Manage" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
 						</ul>
 					</li>
 					<li>
@@ -540,5 +529,6 @@ function link_operating(name,title){
 		<!-- basic scripts -->
 		
 </body>
+
 </html>
 

@@ -8,11 +8,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link href="/statics/assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="/statics/css/style.css"/>
-        	<link rel="stylesheet" href="/statics/assets/css/ace.min.css" />
+<link href="/statics/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/statics/css/style.css"/> 
+         <link rel="stylesheet" href="/statics/assets/css/ace.min.css" /> 
         <link rel="stylesheet" href="/statics/assets/css/font-awesome.min.css" />
+    
         <link href="/statics/assets/css/codemirror.css" rel="stylesheet">
+        
+        
+        
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="/statics/assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
@@ -28,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="/statics/assets/js/jquery.min.js"></script>        
 		<!-- <![endif]-->
            	<script src="/statics/assets/dist/echarts.js"></script>
-        <script src="/statics/assets/js/bootstrap.min.js"></script>            
+        < <script src="/statics/assets/js/bootstrap.min.js"></script>    
        <title></title>
        </head>		
 <body>
@@ -142,31 +146,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="home_btn">
      <div>
      <a href="picture-add.html"  title="添加商品" class="btn  btn-info btn-sm no-radius">
-     <i class="bigger-200"><img src="images/icon-addp.png" /></i>
+     <i class="bigger-200"><img src="/statics/images/icon-addp.png" /></i>
      <h5 class="margin-top">添加商品</h5>
      </a>
      <a href="Category_Manage.html"  title="产品分类" class="btn  btn-primary btn-sm no-radius">
-     <i class="bigger-200"><img src="images/icon-cpgl.png" /></i>
+     <i class="bigger-200"><img src="/statics/images/icon-cpgl.png" /></i>
      <h5 class="margin-top">产品分类</h5>
      </a>
      <a href="admin_info.html"  title="个人信息" class="btn  btn-success btn-sm no-radius">
-     <i class="bigger-200"><img src="images/icon-grxx.png" /></i>
+     <i class="bigger-200"><img src="/statics/images/icon-grxx.png" /></i>
      <h5 class="margin-top">个人信息</h5>
      </a>
      <a href="Systems.html"  title="系统设置" class="btn  btn-info btn-sm no-radius">
-     <i class="bigger-200"><img src="images/xtsz.png" /></i>
+     <i class="bigger-200"><img src="/statics/images/xtsz.png" /></i>
      <h5 class="margin-top">系统设置</h5>
      </a>
      <a href="Order_handling.html"  title="商品订单" class="btn  btn-purple btn-sm no-radius">
-     <i class="bigger-200"><img src="images/icon-gwcc.png" /></i>
+     <i class="bigger-200"><img src="/statics/images/icon-gwcc.png" /></i>
      <h5 class="margin-top">商品订单</h5>
      </a>
      <a href="picture-add.html"  title="添加广告" class="btn  btn-pink btn-sm no-radius">
-     <i class="bigger-200"><img src="images/icon-ad.png" /></i>
+     <i class="bigger-200"><img src="/statics/images/icon-ad.png" /></i>
      <h5 class="margin-top">添加广告</h5>
      </a>
       <a href="article_add.html"  title="添加文章" class="btn  btn-info btn-sm no-radius">
-     <i class="bigger-200"><img src="images/icon-addwz.png" /></i>
+     <i class="bigger-200"><img src="/statics/images/icon-addwz.png" /></i>
      <h5 class="margin-top">添加文章</h5>
      </a>
      </div>
