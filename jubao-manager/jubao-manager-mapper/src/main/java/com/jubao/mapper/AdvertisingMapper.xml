@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.mapper.AdvertisingMapper">
+ <!-- 广告图片管理 -->
+ 
+ <!-- 添加广告图片 -->
+ <insert id="addAdvertising" parameterType="advertising">
+ 
+   INSERT INTO `jubao`.`advertisin` (
+  `categoryId`,
+  `advertisinUrl`,
+  `advertisinToUrl`,
+  `advertisinStatus`,
+  `advertisinTime`,
+  `advertisinCreate`,
+  `advertisinStartTime`,
+  `advertisinStart`,
+  `advertisinUserType`,
+  `advertisinUserId`
+)
+VALUES
+  (
+    #{categoryId},
+    #{advertisinUrl},
+    #{advertisinToUrl},
+    #{advertisinStatus},
+    #{advertisinTime},
+    #{advertisinCreate},
+    #{advertisinStartTime},
+    #{advertisinStart},
+    #{advertisinUserType},
+    #{advertisinUserId}
+  );
+   
+   
+ 
+ </insert>
+
+
+<!-- 分组查询出广告的分类，和该分类的数量    advercateExtension  广告分类扩展类-->
+<select id="getCateGroupCount"  resultType="advercateExtension">
+  SELECT
+  a.`categoryId`,
+  a.`categoryName`,
+  a.`advertisinNumber`,
+  COUNT(v.`categoryId`) effectiveNumber
+FROM
+  `jubao`.`advertisin` v ,`advertisingCategory` a
+WHERE v.`categoryId`=a.`categoryId` 
+AND v.`advertisinStatus`=1  GROUP BY v.`categoryId`
+  
+</select>
+
+<!-- 根据广告分类查询出该分类下的广告 -->
+<select id="getCateidAdvertising" parameterType="advertising" resultType="advertising">
+SELECT
+  a.`advertisinId`,
+  c.categoryName,
+  a.`advertisinUrl`,
+  a.`advertisinToUrl`,
+  a.`advertisinStatus`,
+  a.`advertisinTime`,
+  a.`advertisinCreate`,
+  a.`advertisinStartTime`,
+  a.`advertisinStart`,
+  a.`advertisinUserType`,
+  a.`advertisinUserId`
+FROM
+  `jubao`.`advertisin` a,`advertisingCategory` c
+ WHERE a.`categoryId`=c.categoryId
+      
+      <if test="categoryId!=null">
+    	 AND a.`categoryId`=#{categoryId}
+      </if>
+      
+</select>
+
+<update id="updateAdvertising" parameterType="advertising">
+  UPDATE
+  `jubao`.`advertisin`
+<trim prefix="set" suffixOverrides="," suffix="where `advertisinId` =#{advertisinId}">
+<if test="categoryId!=null">
+  `categoryId` = #{categoryId},
+</if>
+<if test="advertisinUrl!=null">
+  `advertisinUrl` = #{advertisinUrl},
+</if>
+<if test="advertisinToUrl!=null">
+  `advertisinToUrl` = #{advertisinToUrl},
+</if>
+<if test="advertisinStatus!=null">
+  `advertisinStatus` = #{advertisinStatus},
+</if>
+<if test="advertisinTime!=null">
+  `advertisinTime` = #{advertisinTime},
+</if>
+<if test="advertisinStartTime!=null">
+  `advertisinStartTime` = #{advertisinStartTime},
+</if>
+<if test="advertisinStart!=null">
+  `advertisinStart` = #{advertisinStart},
+</if>
+<if test="advertisinUserType!=null">
+  `advertisinUserType` = #{advertisinUserType},
+</if>
+
+<if test="advertisinUserId!=null">
+  `advertisinUserId` = #{advertisinUserId}
+</if>
+
+
+</trim>  
+
+
+
+ 
+</update>
+
+</mapper>

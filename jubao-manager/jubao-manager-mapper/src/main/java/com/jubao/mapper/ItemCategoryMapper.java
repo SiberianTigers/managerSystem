@@ -3,7 +3,11 @@ package com.jubao.mapper;
 import java.util.List;
 
 import com.jubao.pojo.ItemCategory;
-
+/**
+ * 产品管理
+ * @author 12146
+ *
+ */
 public interface ItemCategoryMapper {
   
 	/***

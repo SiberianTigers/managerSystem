@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.mapper.AdvertisingCategoryMapper">
+	<!-- 广告图片分类 -->
+
+	<sql id="advertisingCategory_sql">
+		`categoryName`,
+		`categoryDsc`,
+		`categoryStatus`,
+		`categoryPirce`,
+		`advertisinWidet`,
+		`advertisinHight`,
+		`advertisinCreateTime`,
+		advertisinNumber
+	</sql>
+
+	<select id="getAllAdvertisingCategory" parameterType="advertisingCategory"
+		resultType="advertisingCategory">
+
+		SELECT
+		`categoryId`,
+		<include refid="advertisingCategory_sql" />
+		FROM
+		`jubao`.`advertisingCategory`
+
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="categoryName!=null">
+				and categoryName like concat('%',#{categoryName},'%')
+			</if>
+			<if test="categoryId!=null">
+				and categoryId=#{categoryId}
+			</if>
+			<if test="categoryStatus!=null">
+				and categoryStatus=#{categoryStatus}
+			</if>
+		</trim>
+
+	</select>
+
+	<!-- 添加分类 -->
+	<insert id="addAdvertisingCategory" parameterType="advertisingCategory">
+		INSERT INTO
+		`jubao`.`advertisingCategory` (
+		`categoryName`,
+		`categoryDsc`,
+		`categoryStatus`,
+		`categoryPirce`,
+		`advertisinWidet`,
+		`advertisinHight`,
+		advertisinNumber,
+		`advertisinCreateTime`
+		)
+		VALUES
+		(
+		#{categoryName},
+		#{categoryDsc},
+		#{categoryStatus},
+		#{categoryPirce},
+		#{advertisinWidet},
+		#{advertisinHight},
+		#{advertisinNumber},
+		#{advertisinCreateTime}
+		);
+
+	</insert>
+
+	<!-- 修改分类 -->
+	<update id="updateAdvertisingCategory" parameterType="advertisingCategory">
+		UPDATE
+		`jubao`.`advertisingCategory`
+		<trim prefix="set" suffixOverrides=","
+			suffix="WHERE `categoryId` = #{categoryId}">
+
+			<if test="categoryName!=null">
+				`categoryName` = #{categoryName},
+			</if>
+			<if test="categoryDsc!=null">
+				`categoryDsc` = #{categoryDsc},
+			</if>
+			<if test="categoryPirce!=null">
+				`categoryPirce` = #{categoryPirce},
+			</if>
+			<if test="categoryStatus!=null">
+				`categoryStatus` = #{categoryStatus},
+			</if>
+			<if test="advertisinWidet!=null">
+				`advertisinWidet` = #{advertisinWidet},
+			</if>
+			<if test="advertisinHight!=null">
+				`advertisinHight` = #{advertisinHight},
+			</if>
+			<if test="advertisinNumber!=null">
+				`advertisinNumber` = #{advertisinNumber}
+			</if>
+		</trim>
+
+
+	</update>
+
+	<!-- 删除分类 -->
+	<delete id="deleteAdvertisingCategory" parameterType="_int">
+		DELETE
+		FROM
+		`jubao`.`advertisingCategory`
+		WHERE `categoryId` =#{id};
+
+	</delete>
+
+
+</mapper>
