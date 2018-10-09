@@ -57,6 +57,7 @@ AND v.`advertisinStatus`=1  GROUP BY v.`categoryId`
 SELECT
   a.`advertisinId`,
   c.categoryName,
+  a.categoryId,
   a.`advertisinUrl`,
   a.`advertisinToUrl`,
   a.`advertisinStatus`,
@@ -73,7 +74,9 @@ FROM
       <if test="categoryId!=null">
     	 AND a.`categoryId`=#{categoryId}
       </if>
-      
+      <if test="advertisinId!=null">
+    	 AND a.`advertisinId`=#{advertisinId}
+      </if>
 </select>
 
 <update id="updateAdvertising" parameterType="advertising">
@@ -112,9 +115,25 @@ FROM
 
 </trim>  
 
-
-
- 
 </update>
+
+<!-- 根据id进行删除 -->
+ <delete id="deleteAdvertising" parameterType="_int">
+ DELETE
+FROM
+  `jubao`.`advertisin`
+WHERE `advertisinId` = #{advertisingid};
+ </delete>
+
+<!-- 批量删除 -->
+<delete id="sumdelete" parameterType="int[]">
+ DELETE FROM  `jubao`.`advertisin`  WHERE `advertisinId` in
+<foreach collection="array" item="id" open="(" close=")" separator=",">
+   #{id}
+</foreach>
+
+</delete> 
+
+
 
 </mapper>

@@ -11,7 +11,7 @@ import com.jubao.pojo.Advertising;
 import com.jubao.service.AdvertisingService;
 
 /***
- * Í¼Æ¬¹ÜÀí
+ * Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
  * @author 12146
  *
  */
@@ -29,9 +29,9 @@ public class AdvertisingServiceImpl implements AdvertisingService {
 	}
 
 	@Override
-	public int sumdelete(int[] advertisingid) {
+	public int deleteCount(int[] advertisingid) {
 		// TODO Auto-generated method stub
-		return 0;
+		return AdvertisingMapper.sumdelete(advertisingid);
 	}
 
 	@Override

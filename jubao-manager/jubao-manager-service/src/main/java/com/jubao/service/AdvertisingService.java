@@ -6,14 +6,14 @@ import com.jubao.pojo.AdvercateExtension;
 import com.jubao.pojo.Advertising;
 
 /***
- * Í¼Æ¬¹ÜÀí
+ * Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
  * @author 12146
  *
  */
 public interface AdvertisingService {
 
 	/***
-	 * Ìí¼Ó²Ù×÷
+	 * ï¿½ï¿½Ó²ï¿½ï¿½ï¿½
 	 * @param advertising
 	 * @return
 	 */
@@ -21,31 +21,31 @@ public interface AdvertisingService {
 	
 	
 	/***
-	 * ÅúÁ¿É¾³ý
+	 * ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
 	 */
-	public int sumdelete(int[] advertisingid);
+	public int deleteCount(int[] advertisingid);
 	
 	
 	/***
-	 * µ¥¸öÉ¾³ý
+	 * ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
 	 */
 	
 	public int deleteAdvertising(int advertisingid);
 	
 	/***
-	 * ÐÞ¸Ä
+	 * ï¿½Þ¸ï¿½
 	 */
 	public int updateAdvertising(Advertising advertising);
 	
 
 	/***
-	 * ¸ù¾Ý·ÖÀàid²éÑ¯³ö¹ã¸æÐÅÏ¢
+	 * ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param Advertising
 	 * @return
 	 */
 	public List<Advertising> getCateidAdvertising(Advertising Advertising);
      /***
-      * getCateGroupCount  ·Ö×é²éÑ¯³ö¹ã¸æµÄ·ÖÀà£¬ºÍ¸Ã·ÖÀàµÄÊýÁ¿    advercateExtension  ¹ã¸æ·ÖÀàÀ©Õ¹Àà 
+      * getCateGroupCount  ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½à£¬ï¿½Í¸Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    advercateExtension  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ 
       * @param cateid
       * @return
       */

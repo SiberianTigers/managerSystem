@@ -74,7 +74,7 @@
 			<div class="border clearfix">
 				<span class="l_f"> <a href="javascript:ovid()" id="ads_add"
 					class="btn btn-warning"><i class="fa fa-plus"></i> 添加广告</a> <a
-					href="javascript:ovid()" class="btn btn-danger"><i
+					href="javascript:ovid()" id="sumdelete" class="btn btn-danger"><i
 						class="fa fa-trash"></i> 批量删除</a>
 				</span> <span class="r_f">共：<b>${cateSum }</b>条广告
 				</span>
@@ -100,7 +100,8 @@
 					<tbody>
 						<c:forEach items="${advertisingList }" var="advertising">
 							<tr>
-								<td><label><input type="checkbox" class="ace"><span
+								<td><label><input type="checkbox" class="ace ckbox"
+										advertisinId="${advertising.advertisinId }"><span
 										class="lbl"></span></label></td>
 								<td>${advertising.advertisinId }</td>
 								<td>${advertising.advertisinUserType == 1?"管理员":"卖家" }</td>
@@ -120,7 +121,7 @@
 											<span class="label label-success radius">显示</span>
 										</c:when>
 										<c:otherwise>
-											<span class="label label-error radius">隐藏</span>
+											<span class="label label-error radius">已关闭</span>
 										</c:otherwise>
 									</c:choose></td>
 								<td class="td-manage"><c:choose>
@@ -138,12 +139,13 @@
 											</a>
 										</c:otherwise>
 									</c:choose> <a title="编辑"
-									onclick="member_edit('编辑','member-add.html','4','','510')"
-									href="javascript:;" class="btn btn-xs btn-info"><i
-										class="fa fa-edit bigger-120"></i></a> <a title="删除"
-									href="javascript:;" onclick="member_del(this,'1')"
+									onclick="member_edit(${advertising.advertisinId},${advertising.categoryId })"
+									href="javascript:void(0)" class="btn btn-xs btn-info"> <i
+										class="fa fa-edit bigger-120"></i>
+								</a> <a title="删除" href="javascript:;"
+									onclick="member_del(this,${advertising.advertisinId})"
 									class="btn btn-xs btn-warning"><i
-										class="fa fa-trash  bigger-120"></i></a></td>
+										class="fa fa-trash  bigger-120"></i> </a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -196,29 +198,30 @@
 		<div class="add_adverts">
 			<form action="" id="addfrom">
 				<ul>
+					<input type="hidden" id="advertisinId" name="advertisinId" />
 					<li><label class="label_name">所属分类</label> <span
 						class="cont_style"> <select class="form-control"
 							id="categoryId" name="categoryId">
-
 						</select></span></li>
 					<li><label class="label_name">投放时长</label><span
 						class="cont_style"><input name="advertisinTime" type="text"
-							id="form-field-1" placeholder="0" class="col-xs-10 col-sm-5"
+							id="advertisinTime" placeholder="0" class="col-xs-10 col-sm-5"
 							style="width:50px"
 							onkeyup="value=value.replace(/[^1234567890-]+/g,'')"></span></li>
 					<li><label class="label_name">投放时段</label><span
-						class="cont_style"><input name="advertisinStartTime"
-							type="datetime-local" id="startDateTime" placeholder="0"
+						class="cont_style"><input name="advertisinStartTime" 
+							type="datetime-local" id="advertisinStartTime" placeholder="0"
 							class="col-xs-10 col-sm-5" style="width:200px"></span></li>
 					<li><label class="label_name">链接地址</label><span
 						class="cont_style"><input name="advertisinToUrl"
-							type="text" id="form-field-1" placeholder="地址"
+							type="text" id="advertisinToUrl" placeholder="地址"
 							class="col-xs-10 col-sm-5" style="width:450px"></span></li>
 					<li><label class="label_name">状&nbsp;&nbsp;态：</label> <span
 						class="cont_style"> &nbsp;&nbsp;<label><input
 								name="advertisinStatus" type="radio" checked="checked"
-								class="ace" value="1"><span class="lbl">显示</span></label>&nbsp;&nbsp;&nbsp;
-							<label><input name="advertisinStatus" type="radio"
+								class="ace" value="1" id="advertisinStatus1"><span
+								class="lbl">显示</span></label>&nbsp;&nbsp;&nbsp; <label><input
+								name="advertisinStatus" type="radio" id="advertisinStatus1"
 								class="ace" value="2"><span class="lbl">隐藏</span></label></span>
 						<div class="prompt r_f"></div></li>
 					<li><label class="label_name">图片</label><span
@@ -290,6 +293,172 @@
     
 }); */
 
+	//修改
+	function member_edit(id, cateid) {
+		$("#advertisinId").val(id);
+		//初始化分类  cateid
+		$.ajax({
+			"type" : "get", //请求类型
+			"url" : "/Advertising/loadCate",
+			"data" : {},
+			"datatype" : "JSON", //请求返回的数据类型
+			"success" : function(result) { //返回请求结果 	
+				if (result.status == "200") {
+					$("#categoryId").empty(); //清空
+					var stroption = "<option value=''>选择分类</option>";
+					for (var x = 0; x < result.data.length; x++) {
+						if (result.data[x].categoryId == cateid) {
+							stroption += "<option value='" + result.data[x].categoryId + "' selected='selected'>" + result.data[x].categoryName + "</option>";
+						} else {
+							stroption += "<option value='" + result.data[x].categoryId + "'>" + result.data[x].categoryName + "</option>";
+						}
+					}
+					$("#categoryId").append(stroption);
+				} else {
+					alert(result.msg);
+				}
+			},
+			error : function() {
+				alert("加载出错");
+			}
+		});
+
+		//给表单赋值
+		$.ajax({
+			"type" : "get", //请求类型
+			"url" : "/Advertising/updateSetInfo",
+			"data" : {
+				"vid" : id
+			},
+			"datatype" : "JSON", //请求返回的数据类型
+			"success" : function(result) { //返回请求结果 	
+		
+				if (result.status == "200") {
+						$("#advertisinTime").val(result.data.advertisinTime); //投放时间长
+						$("#advertisinStartTime").val(result.data.dateInfo)//生效时间    
+						$("#advertisinToUrl").val(result.data.advertisinToUrl); //连接地址
+						if (result.data.advertisinStatus == 1) { //廣告狀態
+							$("#advertisinStatus1").prop("checked", true);
+							$("#advertisinStatus2").prop("checked", false);
+						} else {
+							$("#advertisinStatus1").prop("checked", false);
+							$("#advertisinStatus2").prop("checked", true);
+						}
+						$("#preview").attr("src", "http://119.29.195.240"+result.data.advertisinUrl); //设置图片
+				} else {
+					alert(result.msg);
+				}
+			},
+			error : function() {
+				alert("加载出错");
+			}
+		});
+
+		layer.open({
+			type : 1,
+			title : '修改广告',
+			maxmin : true,
+			shadeClose : false, //点击遮罩关闭层
+			area : [ '800px', '' ],
+			content : $('#add_ads_style'),
+			btn : [ '提交', '取消' ],
+			yes : function(index, layero) {
+				var num = 0;
+				var str = "";
+				$(".add_adverts input[type$='text']").each(function(n) {
+					if ($(this).val() == "") {
+
+						layer.alert(str += "" + $(this).attr("name") + "不能为空！\r\n", {
+							title : '提示框',
+							icon : 0,
+						});
+						num++;
+						return false;
+					}
+				});
+				if (num > 0) {
+					return false;
+				} else {
+					alert("===");
+					var formData = new FormData(document.getElementById("addfrom")); //表单id
+					$.ajax({
+						url : "/Advertising/updateSave",
+						type : 'POST',
+						data : formData,
+						dataType : "json",
+						async : false,
+						cache : false,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+							if (data.status == "200") {
+								//添加成功
+								alert("修改成功");
+								layer.close(index);
+							} else if (data.status == "400") {
+								//图片过大
+								alert(data.msg);
+							}
+						},
+						error : function() {
+							alert("添加出错");
+						}
+					});
+				}
+			}
+		});
+
+
+	}
+
+
+
+
+	//批量删除
+	$("#sumdelete").on("click", function() {
+
+		var checked = $(".ckbox:checked");
+
+		if (checked.length == 0) {
+			alert("请选择数据!");
+		} else {
+			if (confirm("你确定要删除吗？")) {
+				var array = new Array();
+				$.each(checked, function() {
+					array.push($(this).attr("advertisinId"));
+
+				});
+				//批量删除操作
+
+				$.ajax({
+					"type" : "POST", //请求类型
+					"url" : "/Advertising/Sumdelete",
+					"data" : {
+						"array" : JSON.stringify(array)
+					},
+					"datatype" : "JSON", //请求返回的数据类型
+					"success" : function(result) { //返回请求结果 	
+						if (result.status == "200") {
+							alert("操作成功");
+							window.location.href = "/Advertising/advertising";
+						} else {
+							alert(result.msg);
+						}
+					},
+					error : function() {
+						alert("加载出错");
+					}
+				});
+
+
+
+			}
+		}
+	});
+
+
+
+
 
 	//获取文件上传表单中选中的图片 。并且显示出来
 	$("#imgInfo").change(function() {
@@ -351,7 +520,7 @@
 				"type" : "POST", //请求类型
 				"url" : "/Advertising/updateStatus",
 				"data" : {
-					"id" : id,
+					"vid" : id,
 					"status" : "2"
 				},
 				"datatype" : "JSON", //请求返回的数据类型
@@ -378,19 +547,20 @@
 		layer.confirm('确认要显示吗？', {
 			icon : 0,
 		}, function(index) {
-					$.ajax({
+			$.ajax({
 				"type" : "POST", //请求类型
 				"url" : "/Advertising/updateStatus",
 				"data" : {
-					"id" : id
+					"vid" : id
 				},
 				"datatype" : "JSON", //请求返回的数据类型
 				"success" : function(result) { //返回请求结果 	
-					if (result.status == "200") {s
-			$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,id)" href="javascript:;" title="关闭"><i class="fa fa-check  bigger-120"></i></a>');
-			$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">显示</span>');
-			$(obj).remove();
-			} else {
+					if (result.status == "200") {
+						s
+						$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,id)" href="javascript:;" title="关闭"><i class="fa fa-check  bigger-120"></i></a>');
+						$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">显示</span>');
+						$(obj).remove();
+					} else {
 						alert("修改失败");
 					}
 				}
@@ -406,11 +576,28 @@
 		layer.confirm('确认要删除吗？', {
 			icon : 0,
 		}, function(index) {
-			$(obj).parents("tr").remove();
-			layer.msg('已删除!', {
-				icon : 1,
-				time : 1000
-			});
+
+			$.ajax({
+				"type" : "POST", //请求类型
+				"url" : "/Advertising/deleteAdvertising",
+				"data" : {
+					"id" : id
+				},
+				"datatype" : "JSON", //请求返回的数据类型
+				"success" : function(result) { //返回请求结果 	
+					if (result.status == "200") {
+						$(obj).parents("tr").remove();
+
+						layer.msg('已删除!', {
+							icon : 1,
+							time : 1000
+						});
+
+					} else {
+						alert("修改失败");
+					}
+				}
+			})
 		});
 	}
 	/*******添加广告*********/

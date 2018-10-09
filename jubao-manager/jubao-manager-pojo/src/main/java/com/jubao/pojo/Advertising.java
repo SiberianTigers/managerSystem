@@ -1,6 +1,6 @@
 package com.jubao.pojo;
 /***
- * ¹ã¸æÍ¼Æ¬Àà
+ * ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½
  * @author 12146
  *
  */
@@ -8,24 +8,34 @@ package com.jubao.pojo;
 import java.util.Date;
 
 public class Advertising {
-	private Integer advertisinId;  //Ö÷¼ü
-	private Integer categoryId;// INT NOT NULL COMMENT'·ÖÀàid'
-	private String advertisinUrl;// VARCHAR(500) NOT NULL COMMENT '¹ã¸æÍ¼Æ¬´æ·ÅÂ·¾¶',
-	private String advertisinToUrl; // VARCHAR(500) NOT NULL COMMENT 'Á¬½ÓµØÖ·',
-	private Integer advertisinStatus;// INT NOT NULL COMMENT '¹ã¸æÍ¼Æ¬×´Ì¬/1.ÓĞĞ§ 2.¹ıÆÚ',
-	private Integer advertisinTime;// INT NOT NULL COMMENT '¹ã¸æÊ±³¤Í¶·Å/Ğ¡Ê±',
-	private Date advertisinCreate;// DATETIME NOT NULL COMMENT '¹ã¸æ´´½¨Ê±¼ä',
-	private Date advertisinStartTime;// DATETIME NOT NULL COMMENT '¹ã¸æ¿ªÊ¼Ê±¼ä',
-	private Date advertisinStart;// DATETIME NOT NULL COMMENT '¹ã¸æ¹ıÆÚÊ±¼ä',
-	private Integer advertisinUserType;// INT NOT NULL COMMENT'¹ã¸æÍ¶·ÅÓÃ»§ÀàĞÍ
-										// 1.ºóÌ¨¹ÜÀíÔ±,2.Âô¼Ò ',
-	private Integer advertisinUserId;// INT NOT NULL COMMENT '¹ã¸æÍ¶·ÅÈËid'
+	private Integer advertisinId;  //ï¿½ï¿½ï¿½ï¿½
+	private Integer categoryId;// INT NOT NULL COMMENT'ï¿½ï¿½ï¿½ï¿½id'
+	private String advertisinUrl;// VARCHAR(500) NOT NULL COMMENT 'ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Â·ï¿½ï¿½',
+	private String advertisinToUrl; // VARCHAR(500) NOT NULL COMMENT 'ï¿½ï¿½ï¿½Óµï¿½Ö·',
+	private Integer advertisinStatus;// INT NOT NULL COMMENT 'ï¿½ï¿½ï¿½Í¼Æ¬×´Ì¬/1.ï¿½ï¿½Ğ§ 2.ï¿½ï¿½ï¿½ï¿½',
+	private Integer advertisinTime;// INT NOT NULL COMMENT 'ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Í¶ï¿½ï¿½/Ğ¡Ê±',
+	private Date advertisinCreate;// DATETIME NOT NULL COMMENT 'ï¿½ï¿½æ´´ï¿½ï¿½Ê±ï¿½ï¿½',
+	private Date advertisinStartTime;// DATETIME NOT NULL COMMENT 'ï¿½ï¿½æ¿ªÊ¼Ê±ï¿½ï¿½',
+	private Date advertisinStart;// DATETIME NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',
+	private Integer advertisinUserType;// INT NOT NULL COMMENT'ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+										// 1.ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½Ô±,2.ï¿½ï¿½ï¿½ï¿½ ',
+	private Integer advertisinUserId;// INT NOT NULL COMMENT 'ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½id'
 
-	private String categoryName;//·ÖÀàÃû³Æ
+	private String categoryName;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	
+	private String dateInfo;  //æ¥å—å­—ç¬¦ä¸²ç±»å‹çš„ å¹¿å‘Šå¼€å§‹ ä¸´æ—¶æ—¥æœŸ
 	
 	
 	
 	
+	public String getDateInfo() {
+		return dateInfo;
+	}
+
+	public void setDateInfo(String dateInfo) {
+		this.dateInfo = dateInfo;
+	}
+
 	public Advertising() {
 		super();
 	}

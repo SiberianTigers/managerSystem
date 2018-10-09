@@ -1,5 +1,7 @@
 package com.jubao.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.common.utis.JubaoResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -141,11 +145,113 @@ public class AdvertisingController extends BaseController {
 	   */
 		@RequestMapping(value = "/updateStatus", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8",method=RequestMethod.POST)
 		@ResponseBody
-		public JubaoResult updateStatus(@RequestParam(value="/vid")Integer vid,@RequestParam(value="status",defaultValue="1")Integer status) {
+		public JubaoResult updateStatus(@RequestParam(value="vid")Integer vid,@RequestParam(value="status",defaultValue="1")Integer status) {
 
 			    if(advertisingService.updateAdvertising(new Advertising(vid,status))>0){
 					return JubaoResult.ok();
 			    }
 				return JubaoResult.build(400,"修改失败");
 		}
+		
+		
+		/***
+		 *删除图片分类
+		 * 
+		 * @return
+		 */
+		@RequestMapping(value = "/deleteAdvertising",method=RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
+		@ResponseBody
+		public JubaoResult deleteCate(@RequestParam(value="id",required=false)Integer id) {
+
+			System.out.println(id + "=============");
+			// 添加操作
+			if (advertisingService.deleteAdvertising(id)> 0) {
+				return JubaoResult.ok();
+			}
+			return JubaoResult.build(500, "操作错误");
+		}
+		
+		
+		/***
+		 *批量删除图片分类
+		 * 
+		 * @return
+		 */
+		@RequestMapping(value = "/Sumdelete",method=RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
+		@ResponseBody
+		public JubaoResult Sumdelete(@RequestParam(value="array",required=false)String  array) {
+         
+			 JSONArray json=JSONArray.parseArray(array); //将字符串转为JSON数组类型
+			 
+			 int[] arr=JSON.toJavaObject(json,int[].class); //将json字符串数组转换为 int数组
+			
+		   for(int x=0;x<arr.length;x++){
+			   
+			   System.out.println("===批量删除广告id为：====="+arr[x]);
+		   }			
+			
+		   if(advertisingService.deleteCount(arr)==arr.length){
+					return JubaoResult.ok();
+			 }
+			// 添加操作
+			return JubaoResult.build(500, "操作失败");
+		}
+		
+		  /***
+		   * 修改赋值
+		   * @return
+		   */
+			@RequestMapping(value = "updateSetInfo", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
+			@ResponseBody
+			public JubaoResult updateSetInfo(@RequestParam(value="vid")Integer vid) {
+				
+				List<Advertising> AdvertisingList = advertisingService.getCateidAdvertising(new Advertising(vid,null));
+				if (AdvertisingList != null &&AdvertisingList.size()>0) {
+				
+					SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+					
+					AdvertisingList.get(0).setDateInfo(sf.format(AdvertisingList.get(0).getAdvertisinStartTime()));
+					
+					System.out.println("=====日期消息"+AdvertisingList.get(0).getDateInfo());
+					return JubaoResult.ok(AdvertisingList.get(0));
+					
+					
+				
+				} else {
+					return JubaoResult.build(400, "加载分类失败");
+				}
+			}
+			
+			  /***
+			   * 修改保存
+			   * @return
+			   */
+				@RequestMapping(value = "updateSave", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
+				@ResponseBody
+				public JubaoResult updateSave(Advertising advertising,
+						@RequestParam(value = "imgInfo", required = false) MultipartFile fileInfo, HttpServletRequest request) {
+
+					System.out.println("修改广告=============="+advertising);
+					// 上傳圖片
+					Map<String, String> resultMap = pictureService.PictureLoad(fileInfo);
+			    
+					  if(resultMap.get("Info")=="1"){
+						    advertising.setAdvertisinUrl(resultMap.get("url"));// 图片存放路径
+					  }else if(resultMap.get("message").equals("文件为空")){ 
+						  advertising.setAdvertisinUrl(null);
+					  }else{
+							return JubaoResult.build(400,resultMap.get("message"));
+					  }
+					if (advertising == null) {
+						return JubaoResult.build(400, "表单数据为空");
+					}
+				   //获取到广告过期时间
+					advertising.setAdvertisinStart(pictureService.getEndDateTime(advertising.getAdvertisinTime(),advertising.getAdvertisinStartTime().getTime()));
+
+					
+					if(advertisingService.updateAdvertising(advertising)>0){
+						return JubaoResult.ok();
+					}
+					return JubaoResult.build(400, "修改失敗");
+				}
 }

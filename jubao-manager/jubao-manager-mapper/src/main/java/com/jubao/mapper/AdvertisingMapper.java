@@ -6,14 +6,14 @@ import com.jubao.pojo.AdvercateExtension;
 import com.jubao.pojo.Advertising;
 
 /***
- * Í¼Æ¬¹ÜÀí
+ * 
  * @author 12146
  *
  */
 public interface AdvertisingMapper {
 
 	/***
-	 * Ìí¼Ó²Ù×÷
+	 * æ·»åŠ 
 	 * @param advertising
 	 * @return
 	 */
@@ -21,30 +21,30 @@ public interface AdvertisingMapper {
 	
 	
 	/***
-	 * ÅúÁ¿É¾³ı
+	 * æ‰¹é‡åˆ é™¤
 	 */
-	public int sumdelete(int[] advertisingid);
+	public int sumdelete(int[] array);
 	
 	
 	/***
-	 * µ¥¸öÉ¾³ı
+	 * åˆ é™¤
 	 */
 	
 	public int deleteAdvertising(int advertisingid);
 	
 	/***
-	 * ĞŞ¸Ä
+	 * ä¿®æ”¹
 	 */
 	public int updateAdvertising(Advertising advertising);
 	
 	
 	/***
-	 * ¸ù¾İ·ÖÀàid²éÑ¯³ö¹ã¸æĞÅÏ¢
+	 * æŸ¥è¯¢å‡ºå¹¿å‘Šå›¾ç‰‡
 	 */
 	public List<Advertising> getCateidAdvertising(Advertising Advertising);
 	
 	/**
-	 *getCateGroupCount  ·Ö×é²éÑ¯³ö¹ã¸æµÄ·ÖÀà£¬ºÍ¸Ã·ÖÀàµÄÊıÁ¿    advercateExtension  ¹ã¸æ·ÖÀàÀ©Õ¹Àà 
+	 *getCateGroupCount  å›¾ç‰‡åˆ†ç±»  å’Œ è¯¥åˆ†ç±»ä¸‹çš„å›¾ç‰‡æ•°é‡   advercateExtension   æ‰©å±•ç±»  
 	 */
 	
 	public List<AdvercateExtension> getCateGroupCount();
