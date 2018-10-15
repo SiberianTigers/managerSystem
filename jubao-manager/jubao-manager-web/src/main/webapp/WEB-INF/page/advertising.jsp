@@ -124,28 +124,37 @@
 											<span class="label label-error radius">已关闭</span>
 										</c:otherwise>
 									</c:choose></td>
-								<td class="td-manage"><c:choose>
+								<td class="td-manage">
+							
+								<c:choose>
 										<c:when test="${advertising.advertisinStatus == 1}">
 											<a onClick="member_stop(this,${advertising.advertisinId})"
 												href="javascript:;" title="停用"
-												class="btn btn-xs btn-success"> <i
-												class="fa fa-check  bigger-120"></i>
+												class="btn btn-xs btn-success">                
+												
+												<i class="fa fa-check  bigger-120"></i>
+												
 											</a>
 										</c:when>
 										<c:otherwise>
 											<a onClick="member_start(this,${advertising.advertisinId})"
-												href="javascript:;" title="显示" class="btn btn-xs"> <i
-												class='fa fa-close bigger-120'></i>
+												href="javascript:;" title="显示" class="btn btn-xs"> 
+												
+												<i class='fa fa-close bigger-120'></i>
+												
 											</a>
 										</c:otherwise>
-									</c:choose> <a title="编辑"
+							</c:choose>
+							
+									 <a title="编辑"
 									onclick="member_edit(${advertising.advertisinId},${advertising.categoryId })"
 									href="javascript:void(0)" class="btn btn-xs btn-info"> <i
 										class="fa fa-edit bigger-120"></i>
 								</a> <a title="删除" href="javascript:;"
 									onclick="member_del(this,${advertising.advertisinId})"
 									class="btn btn-xs btn-warning"><i
-										class="fa fa-trash  bigger-120"></i> </a></td>
+										class="fa fa-trash  bigger-120"></i> </a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

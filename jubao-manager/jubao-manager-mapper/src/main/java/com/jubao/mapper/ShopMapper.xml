@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.mapper.ShopMapper">
+  
+  <!-- 查询出已有店铺的分类 及店铺数量 -->
+ <select id="getShopCate" resultType="shopCateExtension">
+   SELECT
+  c.`id`,
+  c.`name`,
+  COUNT(s.`storeCategory`) shopcount
+FROM
+  `jubao`.`shop` s ,`itemcat` c 
+ WHERE s.storeCategory=c.`id`
+ GROUP BY s.`storeCategory`
+   
+ </select>
+
+
+ <!-- 根据店铺分类查询出店铺    或者根据店铺名称进行查询 -->
+ <select id="selectShop" parameterType="shop" resultType="shop">
+SELECT
+  s.`id`,
+  s.`storeOw`,
+  s.`storeName`,
+  s.`shopType`,
+  c.`name` catename,
+  s.`storeCategory`,
+  s.`storeStatus`,
+  s.`storeNumber`,
+  s.`storeCreateTime`,
+  s.`storeAddress`,
+  s.`storeUserNumber`,
+  s.`storePrice`,
+  s.`countPrice`,
+  s.`productNumber`,
+  s.phone,
+  s.idCard,
+  s.`emain`,
+  s.shopDesc,
+  s.shopStatus,
+  v.`vname`,
+  v.`points`,
+  s.owName
+FROM
+  `jubao`.`shop` s,`itemcat` c,`violationstype` v WHERE s.`storeCategory`=c.`id` AND v.`vid`=s.`shopStatus`
+    <if test="id!=null">
+      AND s.`id`=#{id}
+  </if>
+   <if test="storeStatus!=null">
+      AND s.`storeStatus`=#{storeStatus}
+  </if>
+  <if test="storeCategory!=null">
+      AND s.`storeCategory`=#{storeCategory}
+  </if>
+  <if test="storeName!=null">
+   AND s.`storeName` LIKE concat('%',#{storeName},'%')
+  </if>
+ 
+ </select>
+ 
+<!-- 查詢出待審核狀態的店鋪數量 -->
+<select id="auditShop" resultType="_int">
+     SELECT COUNT(1) FROM  shop WHERE storeStatus=2
+</select>
+
+
+
+<!-- 批准店铺 -->
+<update id="approvalShop">
+  update shop set storeStatus =#{storeStatus} where id = #{id}
+</update>
+
+
+</mapper>
