@@ -13,6 +13,16 @@ public class IndexController {
 	//日志记录
 	  private  Logger logger =Logger.getLogger(IndexController.class);
 		
+	  /**
+	   * 跳转到后台管理登录界面
+	   * @return
+	   */
+	 @RequestMapping(value="/login")
+	 public String managerLogin(){
+		 return "login";
+	 }
+	  
+	  
 	/***
 	 * 跳转到系统管理界面页
 	 * @return

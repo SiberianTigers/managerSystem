@@ -8,6 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 
   <head>
+  
     <base href="<%=basePath%>">
     
     <title>My JSP 'index.jsp' starting page</title>
@@ -24,8 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
 <%
-  response.sendRedirect("/manager/index"); 
 /*   response.sendRedirect("/itemCategory/toTest"); */
+  response.sendRedirect("/manager/login");
  %>
   
   <body>
