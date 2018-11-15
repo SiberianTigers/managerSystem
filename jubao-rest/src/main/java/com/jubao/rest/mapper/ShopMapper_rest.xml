@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.rest.mapper.ShopMapper_rest">
+
+	<!-- 定义结果集合 -->
+	<resultMap type="shop" id="shopMap">
+		<id column="id" property="id" />
+		<result column="storeName" property="storeName" />
+		<result column="storeCreateTime" property="storeCreateTime" />
+		<result column="storeAddress" property="storeAddress" />
+		<result column="storeUserNumber" property="storeUserNumber" />
+		<!-- 查询出店铺中的商品  -->
+		<collection property="itemList" ofType="item">
+			<id column="pid" property="pid" />
+			<result column="title" property="title" />
+			<result column="price" property="price" />
+			<result column="image" property="image" />
+			<result column="haveSales" property="haveSales" />
+			<result column="numberOfCollections" property="numberOfCollections" />
+
+		</collection>
+	</resultMap>
+
+
+
+	<!-- 根据店铺id查询出店铺信息 -->
+	<select id="findByIdShop"  resultMap="shopMap">
+		SELECT
+		s.`id`,
+		s.`storeName`,
+		s.`storeCreateTime`,
+		s.`storeAddress`,
+		s.`storeUserNumber`,
+		p.`title`,
+		p.`price`,
+		p.`image`,
+		p.`haveSales`,
+		p.numberOfCollections
+		FROM
+		`jubao`.`shop` s LEFT JOIN `product` p ON
+		s.`id`=p.`storid`
+		WHERE id=#{sid}
+		LIMIT 0, #{pageSize};
+	</select>
+
+</mapper>

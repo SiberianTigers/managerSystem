@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.login.mapper.UserMapper">
+
+	<!-- 根据用户编码和用户手机号查询用户 -->
+	<select id="findByUserCodeOrPhoneUser" parameterType="String"
+		resultType="com.jubao.pojo.User">
+		SELECT * FROM `user` WHERE userCode=#{userCodeOrPhone} OR
+		phone=#{userCodeOrPhone}
+	</select>
+
+
+
+	<select id="isPhone" parameterType="String" resultType="_int">
+
+		SELECT COUNT(1)
+		FROM
+		`jubao`.`user` WHERE phone=#{phone}
+	</select>
+   
+   <!-- 添加用户 -->
+   <insert id="addUser"  parameterType="user">
+       INSERT INTO `jubao`.`user` (
+  `userCode`,
+  `password`,
+  `phone`,
+  `myImgage`,
+  `nickName`,
+  `createTime`
+)
+VALUES
+  (
+    #{userCode},
+    #{password},
+    #{phone},
+    #{myImgage},
+    #{nickName},
+    #{createTime}
+  );
+   </insert>
+   
+   
+   
+   
+   <!--  查询用户订单 -->
+   <select id="findUserOrderByStatus" resultMap="rederResult">
+   SELECT
+  o.`id`,
+  o.`payment`,
+  o.`createtime`,
+  o.`userid`,
+  d.`id` did,
+  d.`itemid`,
+  d.`itemType`,
+  d.`num`,
+  d.`orderid`,
+  d.`picpath`,
+  d.`price`,
+  d.`title`,
+  d.`totalfee`,
+  d.storeName
+FROM
+  `jubao`.`tborder` o INNER JOIN `tborderitem` d ON o.`id`=d.`orderid` WHERE o.`status`=#{status} AND o.`userid`=#{userid}
+   </select>
+   
+   
+   <!-- 返回订单和订单明细结果 -->
+   <resultMap type="order" id="rederResult">
+      <id property="id" column="id"/>
+      <result property="payment" column="payment"/>
+      <result property="createtime" column="createtime"/>
+      <result property="userid" column="userid"/>
+      <!-- 商品详情 -->
+      <collection property="orderDetailList" ofType="orderDetail">
+       <result property="id" column="did"/>
+       <result property="itemid" column="itemid"/>
+       <result property="orderid" column="orderid"/>
+       <result property="num" column="num"/>
+       <result property="title" column="title"/>
+       <result property="price" column="price"/>
+       <result property="totalfee" column="totalfee"/>
+       <result property="picpath" column="picpath"/>
+       <result property="itemType" column="itemType"/>
+       <result property="storeName" column="storeName"/>
+      </collection>
+      
+   </resultMap>
+   
+
+</mapper>

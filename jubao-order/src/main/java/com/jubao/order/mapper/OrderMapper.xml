@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.order.mapper.OrderMapper">
+
+	<!-- 创建订单 -->
+	<insert id="create_Order" parameterType="order" useGeneratedKeys="true" keyProperty="id">
+	
+		INSERT INTO
+		`jubao`.`tborder` (
+		`orderCode`,
+		`payment`,
+		`post_fee`,
+		`createtime`,
+		`userid`,
+		addressid
+		)
+		VALUES
+		(
+		#{orderCode},
+		#{payment},
+		#{post_fee},
+		#{createtime},
+		#{userid},
+		#{addressid}
+		);
+	</insert>
+
+
+	<!-- 订单明细 -->
+	<insert id="create_order_detail" parameterType="orderDetail">
+		INSERT INTO `jubao`.`tborderitem` (
+		`itemid`,
+		`orderid`,
+		`num`,
+		`title`,
+		`price`,
+		`totalfee`,
+		`picpath`,
+		`itemType`,
+		storeName
+		)
+		VALUES
+		(
+		#{itemid},
+		#{orderid},
+		#{num},
+		#{title},
+		#{price},
+		#{totalfee},
+		#{picpath},
+		#{itemType},
+		#{storeName}
+		);
+	</insert>
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.shop.mapper.TemplateValueMapper">
+
+
+	<!--添加商品規格 -->
+	<insert id="addTemplateValue" parameterType="templateValue">
+
+		INSERT INTO
+		`jubao`.`productparameter_value` (
+		`pid`,
+		`paramData`,
+		`createTime`
+		)
+		VALUES
+		(
+		#{pid},
+		#{paramData},
+		#{createTime}
+		);
+
+	</insert>
+
+
+	<!-- 修改商品規格 -->
+	<update id="updateTemplateValue" parameterType="templateValue">
+		UPDATE
+		`jubao`.`productparameter_value`
+		<trim prefix="set" suffixOverrides="," suffix="WHERE `id` = #{id}">
+			<if test="paramData!=nul">
+				`paramData` = #{paramData},
+			</if>
+			<if test="updateTime!=null">
+				`updateTime` = #{updateTime}
+			</if>
+		</trim>
+	</update>
+
+
+	<!-- 刪除商品規格 -->
+	<delete id="deleteTemplateValue" parameterType="_int">
+		DELETE
+		FROM
+		`jubao`.`productparameter_value`
+		WHERE `pid` = #{pid};
+
+	</delete>
+
+</mapper>

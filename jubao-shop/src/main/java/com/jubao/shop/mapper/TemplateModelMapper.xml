@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.shop.mapper.TemplateModelMapper">
+
+
+	<!-- 查询商品规格模板 -->
+	<select id="findByIdProductTemplate" resultType="productTemplate"
+		parameterType="_int">
+		SELECT
+		`id`,
+		`categoryid`,
+		`paramData`,
+		`createTime`,
+		`updateTime`
+		FROM
+		`jubao`.`productparameter_moban`
+		WHERE
+		categoryid=#{cid}
+
+	</select>
+
+
+    
+
+</mapper>

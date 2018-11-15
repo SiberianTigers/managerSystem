@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.login.mapper.AddressMapper">
+
+	<!-- 查询出全国地址 根据父级id查询 -->
+
+	<select id="getAddress" parameterType="String" resultType="coutryAddress">
+		SELECT
+		`areaId`,
+		`areaCode`,
+		`areaName`,
+		`level`,
+		`cityCode`,
+		`center`,
+		`parentId`
+		FROM
+		`jubao`.`t_area` WHERE parentId=#{parentId}
+	</select>
+
+
+
+
+
+</mapper>

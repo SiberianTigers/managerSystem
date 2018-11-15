@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.shop.mapper.ProductMapper">
+
+	<!-- 添加商品 -->
+	<insert id="addProduct" parameterType="product">
+
+
+		INSERT INTO `jubao`.`product` (
+		`pid`,
+		`title`,
+		`sell_point`,
+		`price`,
+		`num`,
+		`image`,
+		`cid`,
+		`status`,
+		`created`,
+		`storid`,
+		updated
+		)
+		VALUES
+		(
+		#{pid},
+		#{title},
+		#{sell_point},
+		#{price},
+		#{num},
+		#{image},
+		#{cid},
+		#{status},
+		#{created},
+		#{storid},
+		#{updated}
+		);
+
+		<!-- 根据商品id修改商品的状态 -->
+		<update id="updateStatus" parameterType="_int">
+
+			UPDATE
+			`jubao`.`product`
+			SET
+			`status` =#{status},
+			WHERE `pid` =#{pid}
+
+
+		</update>
+
+	</insert>
+	<!-- 商品状态来查询商品 -->
+	<select id="getByStatusProduct" parameterType="product"
+		resultType="product">
+		SELECT
+		p.`pid`,
+		p.`title`,
+		p.`sell_point`,
+		p.`price`,
+		p.`num`,
+		p.`barcode`,
+		p.`image`,
+		p.`cid`,
+		p.`status`,
+		p.`created`,
+		p.`updated`,
+		p.`storid`,
+		p.`haveSales`,
+		p.`numberOfCollections`,
+		i.`name`,
+		s.`storeName`
+		FROM
+		`jubao`.`product` p INNER JOIN `itemcat` i ON
+		i.`id`=p.`cid` LEFT JOIN `shop` s ON
+		s.`id`=p.`storid` WHERE
+		p.`storid`=#{storid} AND p.`status`=#{status}
+	</select>
+
+ 
+ <!-- 修改商品 -->
+<update id="updateProduct" parameterType="product">
+   
+UPDATE
+  `jubao`.`product`
+<trim prefix="set" suffixOverrides="," suffix="where `pid` = #{pid}"> 
+  <if test="title!=null">
+      `title` = #{title},
+  </if>
+  <if test="sell_point!=null">
+     sell_point=#{sell_point},
+  </if>
+  <if test="price!=null">
+   price = #{price},
+  </if>
+  <if test="num!=null">
+     `num` = #{num},
+  </if>
+  <if test="image!=null">
+    image = #{image},
+  </if>
+  <if test="cid!=null">
+    cid =#{cid},
+  </if>
+  <if test="status!=null">
+    status = #{status}
+  </if>
+   <if test="updated!=null">
+     updated = #{updated}      
+   </if>
+
+ </trim>
+   
+
+</update>
+  
+   <!-- 刪除商品 -->
+	<delete id="deleteProduct" parameterType="_int">
+		DELETE
+		FROM
+		`jubao`.`product`
+		WHERE `pid` =#{pid}
+	</delete>
+
+
+
+</mapper>

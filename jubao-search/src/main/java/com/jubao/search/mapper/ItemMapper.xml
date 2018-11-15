@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jubao.search.mapper.ItemMapper">
+	 
+	 <select id="getProductList" resultType="item">
+SELECT
+  p.`pid`,
+  p.`title`,
+  p.`sell_point`,
+  p.`price`,
+  p.`image`,
+  p.`cid`,
+  p.haveSales,
+  i.`name` categoryName,
+  s.`storeName`,
+  s.`id` sid
+FROM
+  `jubao`.`product` p 
+  LEFT JOIN `itemcat` i ON p.`cid`=i.`id`
+  LEFT JOIN `shop` s ON s.`id`=p.`storid`
+   WHERE  i.`status`=1 
+	 </select>
+</mapper>

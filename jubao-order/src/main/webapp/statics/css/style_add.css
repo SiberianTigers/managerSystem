@@ -1,0 +1,18 @@
+ul.pay{
+	width:1110px; overflow:hidden; margin:0 auto;
+}
+ul.pay li{
+	height:80px; line-height:38px; overflow:hidden; font-size:14px; text-align:center; font-family:"Microsoft YaHei"; float:left; display:inline; margin-right:10px; margin-top:4px; margin-bottom:2px; padding:0 25px; border:1px solid #cccccc; cursor:pointer; position:relative;
+}
+ul.pay li:hover{
+	height:80px; line-height:36px; padding:0 24px; overflow:hidden; border:2px solid #ff4e00;
+}
+ul.pay li .ch_img{
+	width:18px; height:18px; overflow:hidden; background:url(../images/ch.png) no-repeat center top; position:absolute; right:0; bottom:0; display:none;
+}
+ul.pay li.checked{
+	height:80px; line-height:36px; padding:0 24px; overflow:hidden; border:2px solid #ff4e00;
+}
+ul.pay li.checked .ch_img{
+	display:block;
+}

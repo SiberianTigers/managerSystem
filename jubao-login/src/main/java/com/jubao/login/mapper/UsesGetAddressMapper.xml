@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.login.mapper.UsesGetAddressMapper">
+
+	<!-- 增加用户收获地址 -->
+
+	<insert id="userGetAddRess" parameterType="userAddress">
+		INSERT INTO
+		`jubao`.`user_address` (
+		`userId`,
+		`createTime`,
+		`isDefault`,
+		`remark`,
+		`sf`,
+		`sq`,
+		`qx`,
+		`addressInfo`,
+		`zipCode`,
+		`phone`
+		)
+		VALUES
+		(
+		#{userId},
+		#{createTime},
+		#{isdefault},
+		#{remark},
+		#{sf},
+		#{sq},
+		#{qx},
+		#{addressInfo},
+		#{zipCode},
+		#{phone}
+		);
+	</insert>
+
+	<!-- 根据用户id查询出用户的收获地址 -->
+	<select id="findByUseridAddress" parameterType="_int" resultType="userAddress">
+		SELECT
+		u.`id`,
+		u.`userId`,
+		u.`isDefault`,
+		u.`remark`,
+		u.`sf`,
+		u.`sq`,
+		u.`qx`,
+		u.`addressInfo`,
+		u.`zipCode`,
+		u.`phone`,
+		(SELECT areaName FROM `t_area` WHERE areaId=u.`sf`) sfName,
+		(SELECT areaName FROM `t_area` WHERE areaId= u.sq ) sqName,
+		(SELECT areaName FROM `t_area` WHERE areaId=u.qx) qxName
+		FROM
+		`jubao`.`user_address` u WHERE u.userId=#{userid}
+
+	</select>
+	
+	<!-- 修改默認地址為0 -->
+	<update id="updateDefaultAddress" parameterType="int">
+		   update  user_address set isDefault=0 where userId=#{userid}
+	</update>
+	
+	 <!-- 修改用戶的默認地址 -->
+	<update id="setDefaultAddress" parameterType="String">
+	   update user_address set isDefault=1 where id=#{addressid}
+	</update>
+	
+	
+	
+
+</mapper>

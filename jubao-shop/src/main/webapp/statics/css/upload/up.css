@@ -1,0 +1,32 @@
+.startCss{
+	
+	border: solid 1px red;
+	
+	
+	
+}
+
+
+.imgContainer{	
+	list-style: none;
+}
+.imgContainer li{
+
+	width: 100px;height: 80px;background-color: red;
+   margin: 8px;
+   float: left;
+}
+.imgContainer img{
+	
+	width: 100px;height: 80px;
+	cursor:pointer;
+	 background: url(../../images/upload-bj.png) no-repeat 0 0;
+	
+}
+.imgContainer img:hover{ background: url(../../images/upload-bj.png) no-repeat 0 -90px; }
+
+
+.imgContainer input{
+	height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;
+		
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ 
+<!-- 设置懒加载 -->
+ <settings>
+   <setting name="lazyLoadingEnabled" value="false"/>
+    <!-- 设置驼峰名  对应数据库 映射  xx_xx 列 -->
+     <setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings> 
+
+
+<typeAliases>
+  <!-- 实体类取别名    方便在mapper中使用 -->
+  <package name="com.jubao.pojo"/>
+ 
+</typeAliases>
+  
+  <!--分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor" >
+        </plugin>
+    </plugins>
+	
+	
+	
+	
+</configuration>

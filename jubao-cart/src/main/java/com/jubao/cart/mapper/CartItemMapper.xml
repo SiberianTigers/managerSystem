@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jubao.cart.mapper.CartItemMapper">
+ 
+  <select id="findItem" resultType="item" parameterType="long">
+    SELECT
+  p.`pid` id,
+  p.`title`,
+  p.`price`,
+  p.`image`,
+  p.`num`,
+  p.`status`,
+  p.`storid`,
+  s.`storeName`
+FROM
+  `jubao`.`product` p LEFT JOIN `shop` s ON p.`storid`=s.`id` WHERE pid=#{pid}
+  </select>
+ 
+ 
+ 
+ 
+</mapper>
