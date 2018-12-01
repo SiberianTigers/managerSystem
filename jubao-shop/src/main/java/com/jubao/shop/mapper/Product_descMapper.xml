@@ -6,15 +6,16 @@
 	<insert id="addProduct_desc" parameterType="product_desc">
 
 
-		INSERT INTO `jubao`.`tb_item_desc` (
+		INSERT INTO
+		`jubao`.`tb_item_desc` (
 		`item_id`,
 		`item_desc`,
 		`created`
 		)
 		VALUES
 		(
-		#{item_id},
-		#{item_desc},
+		#{itemid},
+		#{itemdesc},
 		#{created}
 		);
 
@@ -24,9 +25,9 @@
 	<update id="updateDesc" parameterType="product_desc">
 		UPDATE
 		`jubao`.`tb_item_desc`
-		<trim prefix="set" suffixOverrides="," suffix="WHERE `item_id` = #{item_id}">
-			<if test="item_desc!=null">
-				`item_desc` = #{item_desc},
+		<trim prefix="set" suffixOverrides="," suffix="WHERE `item_id` = #{itemid}">
+			<if test="itemdesc!=null">
+				`item_desc` = #{itemdesc},
 			</if>
 			<if test="updated!=null">
 				`updated` =#{updated}
@@ -40,7 +41,22 @@
 		DELETE
 		FROM
 		`jubao`.`tb_item_desc`
-		WHERE `item_id` = #{item_id}
+		WHERE `item_id` = #{itemid}
 	</delete>
+
+
+	<!-- 根据商品id查找商品描述 -->
+	<select id="findItemByIdDesc" parameterType="_long" resultType="product_desc">
+		SELECT
+		`item_id`,
+		`item_desc`,
+		`created`,
+		`updated`
+		FROM
+		`jubao`.`tb_item_desc` WHERE item_id=#{pid}
+	</select>
+
+
+
 
 </mapper>

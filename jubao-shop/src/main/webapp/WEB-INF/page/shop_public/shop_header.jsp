@@ -1,9 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
- <link  rel="stylesheet" type="text/css"   href="/statics/css/upload/globle.css" /> 
+<!--  <link  rel="stylesheet" type="text/css"   href="/statics/css/upload/globle.css" />  -->
 <link rel="stylesheet" type="text/css"
 	href="/statics/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/statics/css/style.css">
-<script type="text/javascript" src="/statics/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/statics/js/jquery.min.js"></script>
 <script type="text/javascript" src="/statics/bootstrap/bootstrap.min.js"></script>
 
 <link href="/statics/kindeditor-4.1.10/themes/default/default.css" rel="stylesheet">			
@@ -30,9 +30,8 @@
 <!--Begin Header Begin-->
 <div class="soubg">
 	<div class="sou">
-		<span class="fr"> <span class="fl">你好，请<a
-				href="Login.html">登录</a>&nbsp; <a href="Regist.html"
-				style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|
+		<span class="fr"> <span class="fl">你好 ,<a
+				href="http://localhost:8086/login/user/userManager">${user.userCode }</a>&nbsp;&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|
 		</span> <span class="ss">
 				<div class="ss_list">
 					<a href="#">收藏夹</a>
@@ -108,66 +107,6 @@
 	</div>
 	<!-- 搜索框  end  -->
 
-
-
-	<div class="i_car">
-		<div class="car_t">
-			购物车 [ <span>3</span> ]
-		</div>
-		<div class="car_bg">
-			<!--Begin 购物车未登录 Begin-->
-			<div class="un_login">
-				还未登录！<a href="Login.html" style="color:#ff4e00;">马上登录</a> 查看购物车！
-			</div>
-			<!--End 购物车未登录 End-->
-			<!--Begin 购物车已登录 Begin-->
-			<ul class="cars">
-				<li>
-					<div class="img">
-						<a href="#"><img src="/statics/images/car1.jpg" width="58"
-							height="58" /></a>
-					</div>
-					<div class="name">
-						<a href="#">法颂浪漫梦境50ML 香水女士持久清新淡香 送2ML小样3只</a>
-					</div>
-					<div class="price">
-						<font color="#ff4e00">￥399</font> X1
-					</div>
-				</li>
-				<li>
-					<div class="img">
-						<a href="#"><img src="/statics/images/car2.jpg" width="58"
-							height="58" /></a>
-					</div>
-					<div class="name">
-						<a href="#">香奈儿（Chanel）邂逅活力淡香水50ml</a>
-					</div>
-					<div class="price">
-						<font color="#ff4e00">￥399</font> X1
-					</div>
-				</li>
-				<li>
-					<div class="img">
-						<a href="#"><img src="/statics/images/car2.jpg" width="58"
-							height="58" /></a>
-					</div>
-					<div class="name">
-						<a href="#">香奈儿（Chanel）邂逅活力淡香水50ml</a>
-					</div>
-					<div class="price">
-						<font color="#ff4e00">￥399</font> X1
-					</div>
-				</li>
-			</ul>
-			<div class="price_sum">
-				共计&nbsp; <font color="#ff4e00">￥</font><span>1058</span>
-			</div>
-			<div class="price_a">
-				<a href="#">去购物车结算</a>
-			</div>
-			<!--End 购物车已登录 End-->
-		</div>
-	</div>
 </div>
 
 <!--End Header End-->

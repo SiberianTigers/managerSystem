@@ -27,8 +27,8 @@
 	<update id="updateTemplateValue" parameterType="templateValue">
 		UPDATE
 		`jubao`.`productparameter_value`
-		<trim prefix="set" suffixOverrides="," suffix="WHERE `id` = #{id}">
-			<if test="paramData!=nul">
+		<trim prefix="set" suffixOverrides="," suffix="WHERE `pid` = #{pid}">
+			<if test="paramData!=null">
 				`paramData` = #{paramData},
 			</if>
 			<if test="updateTime!=null">
@@ -46,5 +46,16 @@
 		WHERE `pid` = #{pid};
 
 	</delete>
+ 
+ <select id="findTemplateValue" resultType="templateValue" parameterType="_long">
+ SELECT
+  `id`,
+  `pid`,
+  `paramData`,
+  `createTime`,
+  `updateTime`
+FROM
+  `jubao`.`productparameter_value` WHERE pid=#{cid}
+ </select>
 
 </mapper>

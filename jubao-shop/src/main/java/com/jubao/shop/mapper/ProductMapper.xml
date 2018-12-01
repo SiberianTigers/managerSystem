@@ -24,7 +24,7 @@
 		(
 		#{pid},
 		#{title},
-		#{sell_point},
+		#{sellpoint},
 		#{price},
 		#{num},
 		#{image},
@@ -35,19 +35,19 @@
 		#{updated}
 		);
 
-		<!-- 根据商品id修改商品的状态 -->
-		<update id="updateStatus" parameterType="_int">
+
+	</insert>
+	
+			<!-- 根据商品id修改商品的状态 -->
+		<update id="updateStatus">
 
 			UPDATE
 			`jubao`.`product`
 			SET
-			`status` =#{status},
+			`status` = #{status}
 			WHERE `pid` =#{pid}
-
-
 		</update>
-
-	</insert>
+		
 	<!-- 商品状态来查询商品 -->
 	<select id="getByStatusProduct" parameterType="product"
 		resultType="product">
@@ -77,7 +77,7 @@
 
  
  <!-- 修改商品 -->
-<update id="updateProduct" parameterType="product">
+<update id="updateProduct" parameterType="productCustom">
    
 UPDATE
   `jubao`.`product`
@@ -85,8 +85,8 @@ UPDATE
   <if test="title!=null">
       `title` = #{title},
   </if>
-  <if test="sell_point!=null">
-     sell_point=#{sell_point},
+  <if test="sellpoint!=null">
+     sell_point=#{sellpoint},
   </if>
   <if test="price!=null">
    price = #{price},
@@ -101,10 +101,10 @@ UPDATE
     cid =#{cid},
   </if>
   <if test="status!=null">
-    status = #{status}
+    status = #{status},
   </if>
    <if test="updated!=null">
-     updated = #{updated}      
+     updated = #{updated},      
    </if>
 
  </trim>
@@ -113,13 +113,35 @@ UPDATE
 </update>
   
    <!-- 刪除商品 -->
-	<delete id="deleteProduct" parameterType="_int">
+	<delete id="deleteProduct" parameterType="_long">
 		DELETE
 		FROM
 		`jubao`.`product`
 		WHERE `pid` =#{pid}
 	</delete>
 
+
+  <!--  商品id查询商品 -->
+<select id="findProductByPid" parameterType="_long" resultType="productCustom">
+   SELECT
+  `pid`,
+  `title`,
+  `sell_point` sellpoint,
+  `price`,
+  `num`,
+  `barcode`,
+  `image`,
+  `cid`,
+  (SELECT `name` FROM `itemcat` i WHERE cid=id )cateName,
+  `status`,
+  `created`,
+  `updated`,
+  `storid`,
+  `haveSales`,
+  `numberOfCollections`
+FROM
+  `jubao`.`product`  WHERE  pid=#{pid}
+</select>
 
 
 </mapper>

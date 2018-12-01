@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubao.shop.mapper.UserShopMapper">
+
+	<select id="findShopByUserid" parameterType="_int" resultType="shop">
+	SELECT
+		`id`,
+		`storeOw`,
+		`storeName`,
+		 shopType, 
+		 (SELECT  `name`  FROM `itemcat` WHERE id=storeCategory) storeCategoryName,
+		`storeStatus`,
+		`storeNumber`,
+		`storeCreateTime`,
+		`storeAddress`,
+		`storeUserNumber`,
+		`storePrice`,
+		`countPrice`,
+		`productNumber`,
+		`phone`,
+		`idCard`,
+		`emain`,
+		`shopDesc`,
+		`shopStatus`,
+		`owName`
+		FROM
+		`jubao`.`shop` WHERE storeOw=#{userid}
+
+	</select>
+
+</mapper>
+

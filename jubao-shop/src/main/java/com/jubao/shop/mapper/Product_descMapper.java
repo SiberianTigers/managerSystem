@@ -27,4 +27,11 @@ public interface Product_descMapper {
 	 * 刪除商品詳細描述
 	 */
 	public int deleteDesc(int pid);
+	
+	/***
+	 * 按照商品id查找
+	 * @param pid
+	 * @return
+	 */
+	Product_desc findItemByIdDesc(Long pid);
 }

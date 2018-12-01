@@ -22,4 +22,11 @@ public interface TemplateValueMapper {
 	 * 刪除商品規格
 	 */
 	public  int deleteTemplateValue(int pid);
+	
+	
+	/****
+	 * 根据商品id查找商品规格
+	 */
+	
+	TemplateValue findTemplateValue(Long pid);
 }

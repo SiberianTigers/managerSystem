@@ -1,73 +1,85 @@
 //正上出售中的商品
 
-//點擊修改商品下架
+/****
+ * 
+ * 
+ * 商品状态，1-正常，2-下架，3-删除，4移入仓库
+ */
+
+
+//点击商品下架
 $(".xiajia").on("click", function() {
 	var pid = $(this).attr("pid");
-
+	var obj=$(this).parent().parent();
+	if (!confirm("该商品正在销售中,确定要将该商品下架吗？")) {
+		return;
+	}	
 	$.ajax({
 		url : "/shop/shop/updateStatus",
 		type : "get",
 		data : {
 			"pid" : pid,
-			"status" : 2
+			"status":"2"
 		},
-		dataType : "JSON",
+		datatype : "json",
 		success : function(data) {
 			if (data.status == "200") {
-				$(".table").remove($(this).parent().parent()); //刪除
-			}
+				alert("操作成功");
+				 obj.remove();
+				  }
 		},
 		error : function() {
-			alert("加载页面失败");
+			alert("操作出错");
 		}
 	});
+
 });
 
-
-/***
- * 上架
- */
-
-$(".shangjia").on("click",function(){
-	
-	var pid = $(this).attr("pid");
-
-	$.ajax({
-		url : "/shop/shop/updateStatus",
-		type : "get",
-		data : {
-			"pid" : pid,
-			"status" : 1
-		},
-		dataType : "JSON",
-		success : function(data) {
-			if (data.status == "200") {
-				$(".table").remove($(this).parent().parent()); //刪除
-			}
-		},
-		error : function() {
-			alert("加载页面失败");
-		}
-	});
-	
-});
 
 /****
- * 刪除
+ * 
+ * 删除商品
  */
-
-$("#deleteProduct").on("click",function(){
+$(".deleteProduct").on("click", function() {
+	 var pid=$(this).attr("pid");
+		var obj=$(this).parent().parent();
 	$.ajax({
 		url : "/shop/shop/deleteProduct",
 		type : "get",
 		data : {
 			"pid" : pid,
-			"status" : 1
 		},
-		dataType : "JSON",
+		datatype : "json",
 		success : function(data) {
 			if (data.status == "200") {
-				$(".table").remove($(this).parent().parent()); //刪除
+				alert("操作成功");
+				 obj.remove();//清除当前行
+			}
+		},
+		error : function() {
+			alert("加载页面失败");
+		}
+	});
+});
+
+/****
+ * 商品上架功能
+ */
+$(".shangjia").on("click",function(){
+	var pid=$(this).attr("pid");		
+	var obj=$(this).parent().parent();
+	$.ajax({
+		url : "/shop/shop/updateStatus",
+		type : "get",
+		data : {
+			"pid" : pid,
+			"status":"1"
+		},
+		datatype : "json",
+		success : function(data) {
+			if (data.status == "200") {
+				alert("操作成功");
+				obj.remove();
 			}
 		},
 		error : function() {
@@ -75,10 +87,29 @@ $("#deleteProduct").on("click",function(){
 		}
 	});
 	
-	
 });
 
 
+/**
+ * 修改商品
+ */
+function updateItem(obj) { 
+	var pid = $(obj).attr("pid");
+	$.ajax({
+		url : "/shop/shop/updateItem",
+		type : "get",
+		data:{
+			"pid":pid
+		},
+		dataType : "html",
+		success : function(data) {
+			$("#view").empty();
+			$("#view").append(data);
+		},
+		error : function() {
+			alert("加载页面失败");
+		}
+	});
 
-
+}
 

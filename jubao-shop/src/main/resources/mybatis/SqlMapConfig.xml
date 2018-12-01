@@ -15,6 +15,7 @@
 <typeAliases>
   <!-- 实体类取别名    方便在mapper中使用 -->
   <package name="com.jubao.pojo"/>
+  <package name="com.jubao.shop.pojo.vo"/>
 </typeAliases>
   
   <!--分页插件-->

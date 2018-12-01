@@ -1,12 +1,14 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet"
 	href="/statics/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 <script type="text/javascript"
 	src="/statics/zTree/js/jquery.ztree.all-3.5.min.js"></script>
-	<!-- 图片上传 -->
+
+<!-- 图片上传 -->
 <link rel="stylesheet" type="text/css" href="/statics/css/upload/up.css">
 
-<div class="mem_t">发布宝贝</div>
+<div class="mem_t">修改宝贝</div>
 <form class="form-horizontal" id="proudctform"
 	enctype="multipart/form-data">
 
@@ -14,18 +16,18 @@
 	<div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">商品类别</label>
 		<div class="col-sm-3">
+		     <input type="hidden"  name="pid"  value="${product.pid }">
 			<input type="button" value="选择类目" type="button"
-				class="btn  btn-warning" data-toggle="modal" id="selectCate" />
-			<!-- <input type="button" value="选择类目" type="button"
-				class="btn  btn-warning" data-toggle="modal"
-				data-target="#gridSystemModal" /> -->
-			<input type="hidden" id="Cateid" name="cid"/> &nbsp;<span></span>
+				class="btn  btn-warning" data-toggle="modal" id="selectCate" /> <input
+				type="hidden" id="Cateid" name="cid" value="${product.cid }" />
+			&nbsp;<span>${product.cateName }</span>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">商品标题</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" name="title" id="title">
+			<input type="text" class="form-control" name="title"
+				value="${product.title }" id="title">
 		</div>
 	</div>
 
@@ -33,7 +35,7 @@
 		<label for="inputPassword3" class="col-sm-2 control-label">商品卖点</label>
 		<div class="col-sm-3">
 			<input type="text" class="form-control" name="sellpoint"
-				id="sell_point">
+				value="${product.sellpoint }" id="sell_point">
 		</div>
 	</div>
 
@@ -41,6 +43,7 @@
 		<label for="inputPassword3" class="col-sm-2 control-label">商品价格</label>
 		<div class="col-sm-3">
 			<input type="number" class="form-control" name="price" id="price"
+				value="${product.price }"
 				onkeyup="value=value.replace(/[^1234567890-]+/g,'')">
 		</div>
 	</div>
@@ -48,46 +51,50 @@
 		<label for="inputPassword3" class="col-sm-2 control-label">库存数量</label>
 		<div class="col-sm-3">
 			<input type="number" class="form-control" name="num" id="num"
+				value="${product.num }"
 				onkeyup="value=value.replace(/[^1234567890-]+/g,'')">
 		</div>
 	</div>
-    <div class="form-group">
+	<div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">商品状态</label>
 		<div class="col-sm-3">
-		  <select class="form-control" name="status">
-		     <option value="1">上新</option>
-		     <option value="2">存放仓库</option>
-		  </select>
+			<select class="form-control" name="status">
+				<option value="1">上新</option>
+				<option value="2">存放仓库</option>
+			</select>
 		</div>
 	</div>
 	<!-- 图片上传插件 -->
 	<div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">图片上传</label>
-        <input type="hidden" name="image" id="image" >
-        
-	<!-- =========================start======================================= -->
-	<div class="col-sm-10">
-	<div class="startCss">
-			
-			<ul id="formimg">	
-				
-			   <!-- 上传按钮组件 -->
-			   <li style="width: 40px;" class="box" >
-			   <button style="" type="button" name="上传" id="add"  class="content">上传</button>
-			   </li>
-			   
-			   <!-- 图片选择器 -->
-			   <li class="imgContainer">
-				   <img onclick="getElementById('file').click()" id="book-pic" />
-					 <!-- 选择图片临时存储 --> 
-					<input type="file"
-					multiple="multiple" id="file" name='file' onchange="show(this)" />
-				</li>
-		</ul>
-	</div>	
-	</div>	
-	<!-- ======================end========================================== -->
-	
+		<input type="hidden" name="image" id="image">
+		<!-- =========================start======================================= -->
+		<div class="col-sm-10">
+			<div class="startCss">
+
+				<ul id="formimg">
+
+					<!-- 上传按钮组件 -->
+					<li style="width: 40px;" class="box">
+						<button style="" type="button" name="上传" id="add" class="content">上传</button>
+					</li>
+
+					<!-- 图片选择器 -->
+					<li class="imgContainer"><img
+						onclick="getElementById('file').click()" id="book-pic" /> <!-- 选择图片临时存储 -->
+						<input type="file" multiple="multiple" id="file" name='file'
+						onchange="show(this)" /></li>
+
+					<!-- 修改的图片 -->
+					<c:forEach items="${product.getImg() }" var="img">
+						<li class="updateimglist"><span> <img alt=""
+								src="http://119.29.195.240${img }" url="${img }" >
+						</span> <i class="delImg" onclick='delimg(this)'>×</i></li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+		<!-- ======================end========================================== -->
 	</div>
 
 
@@ -96,14 +103,17 @@
 		<input type="hidden" name="temp_value_add" id="temp_value_add" />
 		<!-- 存放商品规格项的 -->
 		<div class="col-sm-3" id="template">
-			<!--  <ul style="text-align: center;">template
-		   	<li><p style="text-align: center;background-color:orange;" name="group">模板</p></li>
-		     <li><p name="params" > 颜色  <input type="text" name="temp_value" /></p></li>
-		     <li><p name="params"> 颜色  <input type="text" name="temp_value"/></p></li>
-		     <li><p name="params"> 颜色  <input type="text" name="temp_value"/></p></li>
-	  </ul>   -->
-
-
+			<c:forEach items="${keyValues }" var="kv">
+				
+				<ul style="text-align: center;">
+					<p style="text-align: center;background-color:orange;" name="group" >${kv.group }</p>
+					<c:forEach items="${kv.keyValue }" var="kvs">
+						<li> 
+						 <p name='params'>${kvs.k }<input type="text" name="temp_value" value="${kvs.v }"/> </p>
+						</li>
+					</c:forEach>
+				</ul>	
+			</c:forEach>
 		</div>
 	</div>
 
@@ -116,7 +126,7 @@
 			<!-- 存放text域中的文本 -->
 			<textarea style="width:100%;height:300px;visibility: hidden;"
 				id="v_content" name="v_content"> 
-xx 
+             ${desc.itemdesc}
 			</textarea>
 		</div>
 	</div>
@@ -173,12 +183,16 @@ xx
 <!-- Modal   end-->
 
 
+
+
 <script type="text/javascript" src="/statics/locajs/myUploadFile.js"></script>
-<!-- <script type="text/javascript"
-	src="/statics/js/uploadfile/webuploader.min.js" />
-<script type="text/javascript" src="/statics/js/uploadfile/diyUpload.js" /> -->
+
+
+
 
 <script>
+
+
 	//=====================多文本编辑器=======================================================================
 
 
@@ -235,7 +249,7 @@ xx
 						tempStr += "<ul style='text-align: center;'><p style='text-align: center;background-color:orange;' name='group' >" + paramData[x].group + "</p>";
 						//参数项目
 						for (var s = 0; s < paramData[x].params.length; s++) {
-							tempStr += "<li><p name='params'>" + paramData[x].params[s] + "：<input type='text' name='temp_value'/></p></li>";
+							tempStr += "<li><p name='params'>" + paramData[x].params[s] + "： <input type='text' name='temp_value'/></p></li>";
 						}
 						tempStr += "</ul>";
 					}
@@ -244,12 +258,13 @@ xx
 
 
 				}
-			});  
-			
+			});
+
 
 		}
 
-	};
+	}
+	;
 
 	//============================点击选择类目弹出模态框================================================================
 
@@ -282,22 +297,6 @@ xx
 		var price = $("#price").val();
 		var num = $("#num").val();
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		if (cid == "") {
 			alert("请选择商品类别");
 			return false;
@@ -314,95 +313,110 @@ xx
 			$("#price").focus();
 			return false;
 		}
-//===================商品规格======================================================		
-         var temp_value=[];
-        $("#template [name=group]").each(function(i, e) {
-           var  g=[];
-           var gname=$(this).text();//分组名称 
-          
-          	var p=$(this).parent().find("[name=params]");//查找父级中name=params的节点
-          	 p.each(function(i, e) { 	 
-          	 var  v=$(this).children();
-           
-           if(v.val().trim()!= ""){	  
-          	  g.push({
-          	  "k":$(this).text().trim(),
-          	  "v":v.val()
-          	  });
-          	 }else{
-          	 alert("规格参数不能为空");
-          	  return false;
-          	 } 
-          	 });
-           //将数据加入到数组
-           temp_value.push({
-            "group":gname,
-            "params":g       
-           });	 
-          });	
-      
-          var tempValue=JSON.stringify(temp_value);
-          $("#temp_value_add").val(tempValue);//将数据存入表单中
-         
- //=====================================================================================         
-  /*        for(var x=0;x<temp_value.length;x++){
-           alert(temp_value[x].group+"-----"+temp_value[x].params.toString());
-         } 	 
-          	  */    
-       editor.sync();//将富文本编辑器中的内容设置到text域中
-        var text_value=$("#v_content").val();
-         
-        if(text_value == ""){
-        alert("请添加商品描述");
-         return false;
-        }else{
-         $("#desc").val(text_value);
-        }
-          	
-      return true;
-   
+		//===================商品规格======================================================		
+		var temp_value = [];
+		$("#template [name=group]").each(function(i, e) {
+			var g = [];
+			var gname = $(this).text(); //分组名称 
+
+			var p = $(this).parent().find("[name=params]"); //查找父级中name=params的节点
+			p.each(function(i, e) {
+				var v = $(this).children();
+               
+				if (v.val().trim() != "") {
+					g.push({
+						"k" : $(this).text().trim(),
+						"v" : v.val()
+					});
+				} else {
+					alert("规格参数不能为空");
+					return false;
+				}
+			});
+			//将数据加入到数组
+			temp_value.push({
+				"group" : gname,
+				"params" : g
+			});
+		});
+
+		var tempValue = JSON.stringify(temp_value);
+		$("#temp_value_add").val(tempValue); //将数据存入表单中
+        
+		//=====================================================================================         
+	/* 	        for(var x=0;x<temp_value.length;x++){
+		         alert(temp_value[x].group+"-----"+temp_value[x].params.toString());
+		       } 	 */ 
+		        	  
+		editor.sync(); //将富文本编辑器中的内容设置到text域中
+		var text_value = $("#v_content").val();
+
+		if (text_value == "") {
+			alert("请添加商品描述");
+			return false;
+		} else {
+			$("#desc").val(text_value);
+		}
+
+		return true;
+
 	}
 
 
 
-	//添加商品
+	//修改商品
 	$("#productAdd").on("click", function() {
-	
-	   if(checkFrom()){
-           
-             if(fileUpload() == false){//上传图片操作
-             	return;
-             }
-             alert("----");
-           		var itemAdd = new FormData(document.getElementById("proudctform")); //表单id
-			    		
-					$.ajax({
-						url : "/shop/shop/addPrduct",
-						type : 'POST',
-						data : itemAdd,
-						dataType : "json",
-						async : false,
-						cache : false,
-						contentType : false,
-						processData : false,
-						success : function(data) {
-							if (data.status == "200") {
-								//添加成功
-								alert("添加成功");
-								layer.close(index);
-							} else if (data.status == "500") {
-								//店铺信息为空
-                              alert(data.msg);
- 							}
-						},
-						error : function() {
-							alert("添加出错");
-						}
-					});
 
-	   
-	   }
-	 
+		if (checkFrom()) {
+
+			if (fileUpload() == false) { //上传图片操作
+				return;
+			}
+		//============新上传的url和已经存在图片url合并==================================	
+			var imgurl="";
+			$(".updateimglist img").each(function(i, e) {
+				var url = $(this).attr("url");
+			   imgurl+=url+",";
+			});
+            var imgpath=$("#image").val();
+             $("#image").val(imgurl+imgpath);
+         //=================================================
+         
+			var updateItem = new FormData(document.getElementById("proudctform")); //表单id
+
+			$.ajax({
+				url : "/shop/shop/updateItemInfo",
+				type : 'POST',
+				data : updateItem,
+				dataType : "json",
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(data) {
+					if (data.status == "200") {
+						//添加成功
+						alert("添加成功");
+						layer.close(index);
+					} else if (data.status == "400") {
+						//图片过大
+						alert(data.msg);
+					}
+				},
+				error : function() {
+					alert("添加出错");
+				}
+			});
+
+
+		}
+
 	});
-	
+
+	//删除图片事件	
+	function delimg(obj) {
+		//var img = $(obj).parent().find("img"); //得到图片上的id
+		$(obj).parent().remove();
+	}
 </script>
+

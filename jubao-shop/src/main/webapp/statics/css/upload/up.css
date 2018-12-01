@@ -1,32 +1,66 @@
 .startCss{
-	
-	border: solid 1px red;
-	
-	
-	
+	width:93%;
+	/*  border: solid 1px red;  */
+	 margin-left:0px;	
 }
 
 
-.imgContainer{	
+#formimg{	
 	list-style: none;
+ 	/* border: solid 2px green;  */
+	overflow: auto;
+	margin: 0 auto;
+	/*  border: solid 1px red; */
+	 padding: 0px;
 }
-.imgContainer li{
-
-	width: 100px;height: 80px;background-color: red;
-   margin: 8px;
-   float: left;
-}
-.imgContainer img{
-	
+#formimg li{
+    float:left;
 	width: 100px;height: 80px;
-	cursor:pointer;
-	 background: url(../../images/upload-bj.png) no-repeat 0 0;
+   margin: 7px;
+   position: relative;
+    border: solid 1px green; 
+}
+#formimg img{
+	width: 100px;height: 80px;
+}
+
+.imgContainer img{
+
+	 background: url(../../images/upload-bj.png) center 0;
 	
 }
-.imgContainer img:hover{ background: url(../../images/upload-bj.png) no-repeat 0 -90px; }
+.imgContainer img:hover{ background: url(../../images/upload-bj.png) no-repeat center -90px; }
 
 
 .imgContainer input{
 	height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;
 		
+}
+
+
+.delImg {
+    position: absolute;
+    top: -10px;
+    right: -7px;
+    width: 22px;
+    height: 22px;
+    background: #000;
+    border-radius: 50%;
+    display: block;
+    text-align: center;
+    line-height: 22px;
+    color: #fff;
+    font-weight: 700;
+    font-style: normal;
+    cursor: pointer;
+}
+
+
+.box {
+    display: flex;//flex布局
+    justify-content: center;//使子项目水平居中
+    align-items: center;//使子项目垂直居中
+}
+.content {
+
 }
