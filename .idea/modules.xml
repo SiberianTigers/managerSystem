@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jubao-common/jubao-common.iml" filepath="$PROJECT_DIR$/jubao-common/jubao-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jubao-manager/jubao-manager.iml" filepath="$PROJECT_DIR$/jubao-manager/jubao-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jubao-manager/jubao-manager-mapper/jubao-manager-mapper.iml" filepath="$PROJECT_DIR$/jubao-manager/jubao-manager-mapper/jubao-manager-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jubao-manager/jubao-manager-pojo/jubao-manager-pojo.iml" filepath="$PROJECT_DIR$/jubao-manager/jubao-manager-pojo/jubao-manager-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jubao-manager/jubao-manager-service/jubao-manager-service.iml" filepath="$PROJECT_DIR$/jubao-manager/jubao-manager-service/jubao-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jubao-manager/jubao-manager-web/jubao-manager-web.iml" filepath="$PROJECT_DIR$/jubao-manager/jubao-manager-web/jubao-manager-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jubao-parent/jubao-parent.iml" filepath="$PROJECT_DIR$/jubao-parent/jubao-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/managerSystemx.iml" filepath="$PROJECT_DIR$/.idea/managerSystemx.iml" />
+    </modules>
+  </component>
+</project>
