@@ -2,6 +2,8 @@ package com.jubao.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jubao.pojo.ItemCategory;
 
 public interface ItemCategoryService {
@@ -41,5 +43,10 @@ public interface ItemCategoryService {
 	   */
 		
 	public Integer selectSortIndex(int id);
-
+	/***
+	 * 
+	 *ÐÞ¸ÄÍ¼Æ¬log
+	 * @return
+	 */
+	public int updateCatelog(@Param("cateImg")String cateImg,@Param("id")Integer id);
 }

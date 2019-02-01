@@ -87,5 +87,11 @@ var  payPrice=200;
         var message = document.getElementById('text').value;
         websocket.send(message);
      }
+     
+ $("#IDbtnBack").on("click",function(){
+  window.location.href="http://localhost:8088/order/order/confirm_order.html";
+ }); 
+     
+     
 </script>
 </html>

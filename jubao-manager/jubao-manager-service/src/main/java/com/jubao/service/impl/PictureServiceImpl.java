@@ -32,18 +32,18 @@ public class PictureServiceImpl implements PictureService {
 	private Integer PORT;
 
 	@Override
-	public Map<String,String> PictureLoad(MultipartFile fileInfo) {
+	public Map<String, String> PictureLoad(MultipartFile fileInfo) {
 		// TODO Auto-generated method stub
- 
-		 Map<String,String>resultMap=new HashMap<String, String>();
-		
+		System.out.println(IMGFILE_LOCAHAST + USER + PASSWORD + BASEPATH + PORT);
+		Map<String, String> resultMap = new HashMap<String, String>();
+
 		if (!fileInfo.isEmpty()) {// 判断是否为空
 			// 不为空
 
 			if (fileInfo.getSize() < 5242880) {
 
 				try {
-					List<String> gifList = Arrays.asList("jpg", "gif", "png", "jpeg");
+					List<String> gifList = Arrays.asList("jpg", "gif", "png", "jpeg", "icon");
 
 					// 文件合格
 					String fineName = fileInfo.getOriginalFilename();// 获取文件名称
@@ -54,54 +54,60 @@ public class PictureServiceImpl implements PictureService {
 						newFileName = newFileName + "." + StringUtils.getFilenameExtension(fineName); // 新文件名加旧文件名的后缀名
 						String imgPath = new DateTime().toString("yyyy/MM/dd");// 存放文件的文件夹名称
 
-						boolean flag = FtpUtil.uploadFile(IMGFILE_LOCAHAST, PORT, USER, PASSWORD, BASEPATH, imgPath,
-								newFileName, fileInfo.getInputStream());
-						if (!flag) {
-							resultMap.put("Info","0");
-							resultMap.put("message","上传文件失败");
-						 return resultMap;
+						boolean flag = false;
+						try {
+							flag = FtpUtil.uploadFile(IMGFILE_LOCAHAST, PORT, USER, PASSWORD, BASEPATH, imgPath,
+									newFileName, fileInfo.getInputStream());
+						} catch (Exception e) {
+							// TODO: handle exception
+							e.printStackTrace();
 						}
-						resultMap.put("Info","1");
-						resultMap.put("url",File.separator+imgPath+File.separator+newFileName);
-						System.out.println(IMGFILE_LOCAHAST+File.separator+imgPath+File.separator+newFileName);
-						return resultMap;			
+						if (!flag) {
+							resultMap.put("Info", "0");
+							resultMap.put("message", "上传文件失败");
+							return resultMap;
+						}
+						resultMap.put("Info", "1");
+						resultMap.put("url", File.separator + imgPath + File.separator + newFileName);
+						System.out.println(IMGFILE_LOCAHAST + File.separator + imgPath + File.separator + newFileName);
+						return resultMap;
 					} else {
 						// 文件格式不ok
-						resultMap.put("Info","0");
-						resultMap.put("message","文件格式不合格");
+						resultMap.put("Info", "0");
+						resultMap.put("message", "文件格式不合格");
 						return resultMap;
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
-					resultMap.put("Info","0");
-					resultMap.put("message","上传文件发生错误");
+					resultMap.put("Info", "0");
+					resultMap.put("message", "上传文件发生错误");
 					return resultMap;
 				}
 
 			} else {
 				// 文件过大
-				resultMap.put("Info","0");
-				resultMap.put("message","文件过大");
+				resultMap.put("Info", "0");
+				resultMap.put("message", "文件过大");
 				return resultMap;
 			}
 
 		} else {
 			// 图片为空
-			resultMap.put("Info","0");
-			resultMap.put("message","文件为空");
+			resultMap.put("Info", "0");
+			resultMap.put("message", "文件为空");
 			return resultMap;
 		}
 
 	}
 
 	@Override
-	public Date getEndDateTime(int num,long time) {
+	public Date getEndDateTime(int num, long time) {
 		// TODO Auto-generated method stub
-		//得到到期时间
-		long startTime=num*3600000;  
-	
-		 Date date=new Date(startTime+time);
-		 
+		// 得到到期时间
+		long startTime = num * 3600000;
+
+		Date date = new Date(startTime + time);
+
 		return date;
 	}
 

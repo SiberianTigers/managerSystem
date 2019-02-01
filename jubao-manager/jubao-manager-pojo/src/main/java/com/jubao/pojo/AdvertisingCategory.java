@@ -1,6 +1,7 @@
 package com.jubao.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 /***
  * 广告分类
@@ -21,6 +22,20 @@ public class AdvertisingCategory {
 		private Date advertisinCreateTime;//分类创建时间
 		private Integer advertisinNumber;// 该分类存储广告数量
 		
+		//广告
+		private List<Advertising> advertisingList;
+		
+		
+		
+		
+		
+		
+		public List<Advertising> getAdvertisingList() {
+			return advertisingList;
+		}
+		public void setAdvertisingList(List<Advertising> advertisingList) {
+			this.advertisingList = advertisingList;
+		}
 		public Date getAdvertisinCreateTime() {
 			return advertisinCreateTime;
 		}
@@ -76,17 +91,7 @@ public class AdvertisingCategory {
 		public void setAdvertisinNumber(Integer advertisinNumber) {
 			this.advertisinNumber = advertisinNumber;
 		}
-		@Override
-		public String toString() {
-			return "AdvertisingCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryDsc="
-					+ categoryDsc + ", categoryStatus=" + categoryStatus + ", categoryPirce=" + categoryPirce
-					+ ", advertisinWidet=" + advertisinWidet + ", advertisinHight=" + advertisinHight
-					+ ", getCategoryId()=" + getCategoryId() + ", getCategoryName()=" + getCategoryName()
-					+ ", getCategoryDsc()=" + getCategoryDsc() + ", getCategoryStatus()=" + getCategoryStatus()
-					+ ", getCategoryPirce()=" + getCategoryPirce() + ", getAdvertisinWidet()=" + getAdvertisinWidet()
-					+ ", getAdvertisinHight()=" + getAdvertisinHight() + ", getClass()=" + getClass() + ", hashCode()="
-					+ hashCode() + ", toString()=" + super.toString() + "]";
-		}
+	
 		public AdvertisingCategory(Integer categoryId) {
 			super();
 			this.categoryId = categoryId;
@@ -98,6 +103,20 @@ public class AdvertisingCategory {
 			super();
 			this.categoryId = categoryId;
 			this.categoryStatus = categoryStatus;
+		}
+		@Override
+		public String toString() {
+			return "AdvertisingCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryDsc="
+					+ categoryDsc + ", categoryStatus=" + categoryStatus + ", categoryPirce=" + categoryPirce
+					+ ", advertisinWidet=" + advertisinWidet + ", advertisinHight=" + advertisinHight
+					+ ", advertisinCreateTime=" + advertisinCreateTime + ", advertisinNumber=" + advertisinNumber
+					+ ", advertisingList=" + advertisingList + ", getAdvertisingList()=" + getAdvertisingList()
+					+ ", getAdvertisinCreateTime()=" + getAdvertisinCreateTime() + ", getCategoryId()="
+					+ getCategoryId() + ", getCategoryName()=" + getCategoryName() + ", getCategoryDsc()="
+					+ getCategoryDsc() + ", getCategoryStatus()=" + getCategoryStatus() + ", getCategoryPirce()="
+					+ getCategoryPirce() + ", getAdvertisinWidet()=" + getAdvertisinWidet() + ", getAdvertisinHight()="
+					+ getAdvertisinHight() + ", getAdvertisinNumber()=" + getAdvertisinNumber() + ", getClass()="
+					+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 		}
 	
 		

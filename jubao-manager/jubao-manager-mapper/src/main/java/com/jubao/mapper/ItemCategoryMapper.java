@@ -2,50 +2,57 @@ package com.jubao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jubao.pojo.ItemCategory;
 /**
- * ²úÆ·¹ÜÀí
+ * ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
  * @author 12146
  *
  */
 public interface ItemCategoryMapper {
   
 	/***
-	 * »ñÈ¡ËùÓĞ·ÖÀà
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public List<ItemCategory> getAllIntegerCategory(Integer id);
 	
 	/***
-	 * ĞÂÔöÉÌÆ··ÖÀà
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 	 */
 	
 	public int addCate(ItemCategory category);
 	
 	/***
-	 * É¾³ıÉÌÆ··ÖÀà
+	 * É¾ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 	 */
 	
 	public int  deleteCate(int id);
 	
 	/**
-	 * É¾³ı×Ó·ÖÀà
+	 * É¾ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½
 	 * @param id
 	 * @return
 	 */
 	public int deleteCateChile(int id);
 	
 	/***
-	 * ĞŞ¸ÄÉÌÆ··ÖÀà
+	 * ï¿½Ş¸ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 	 */
 	public int updateCate(ItemCategory category);
 
   /**
-   *  ²éÑ¯ ³ö   sort_order  ×Ö¶Î ×î´óÅÅĞò  
+   *  ï¿½ï¿½Ñ¯ ï¿½ï¿½   sort_order  ï¿½Ö¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
    */
 	
 public Integer selectSortIndex(int id);
 
-	
+/***
+ * 
+ *ä¿®æ”¹å›¾ç‰‡log
+ * @return
+ */
+public int updateCatelog(@Param("cateImg")String cateImg,@Param("id")Integer id);
 	
 }

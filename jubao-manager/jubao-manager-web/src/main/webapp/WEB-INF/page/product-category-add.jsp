@@ -86,18 +86,6 @@
 						</select>
 					</div>
 				</div>
-				<div class="Operate_cont clearfix">
-					<label class="form-label">备注：</label>
-					<div class="formControls">
-						<textarea name="" rows="" class="textarea" readonly="readonly"
-							placeholder="说点什么...最少输入10个字符" datatype="*10-100"
-							dragonfly="true" nullmsg="备注不能为空！"
-							onKeyUp="textarealength(this,100)"></textarea>
-						<p class="textarea-numberbar">
-							<em class="textarea-length">0</em>/100
-						</p>
-					</div>
-				</div>
 				<div class="">
 					<div class="" style=" text-align:center">
 						<input class="btn btn-primary radius" type="submit"
@@ -105,9 +93,115 @@
 					</div>
 				</div>
 			</form>
+
+
+
+			<c:if test="${parentId == 0}">
+	     当前LOG:<img alt="log" src="http://${cateImg }">
+				<form id="catelogfrom" method="post">
+					<input id="id" type="hidden" name="id" value="${id }">
+					<div class="Operate_cont clearfix">
+						<label class="form-label">上传Log图片：</label>
+						<div class="formControls">
+							<input type="file" name="catelog"> <br /> <a
+								href="javaScript:void(0)" id="cateload"
+								class="btn btn-xs btn-success">上传</a>
+						</div>
+					</div>
+				</form>
+
+			</c:if>
+
+			<br /> <br /> <br />
+
+
+			<!-- 添加商品规格 -->
+			<c:if test="${isParent == false}">
+				<div class="Operate_btn">
+					<label class="form-label">添加商品规格模板：</label>
+					<button type="button" class="btn  btn-warning" id="group">
+						<i class="glyphicon glyphicon-plus bigger-126"></i>新增分组
+					</button>
+				</div>
+			
+
+
+			<div class="Operate_cont clearfix">
+
+				<ul id="templateul" style="line-height: 20px">
+					<c:if test="${ not empty temp  }">
+
+						<c:forEach items="${temp }" var="k">
+
+							<li class="param">
+								<ul>
+								 
+								 <li>
+									<input class="easyui-addParam" style="width: 150px;"
+										name="group" value="${k.group }" />
+										&nbsp;
+										 <a href="javascript:;" title="添加子项"
+										class="btn btn-xs btn-success addParam"> <i	class='glyphicon glyphicon-plus'></i>
+									</a>
+								 </li>
+
+									<c:forEach items="${k.params }" var="v">
+									<li><span>|-------</span><input style="width: 150px;"
+											value="${v }" class="easyui-delParam" name="param"/>&nbsp;
+											<a href="javascript:;" title="删除"
+											class="btn btn-xs btn-pink ads_link delParam"> <i
+												class='glyphicon glyphicon-minus'></i>
+										</a>
+									</li>
+
+								</c:forEach>
+								</ul>
+							</li>
+						</c:forEach>
+					</c:if>
+					
+				</ul>
+				<!-- 按钮组 -->
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-default" id="templateulRest">重置</button>
+					<button type="button" class="btn btn-primary" id="templateulAdd">提交</button>
+				</div>
+
+          </c:if>
+
+			</div>
+
+
+
+
+
+
+
 		</div>
 	</div>
+
+	<!-- 模板 -->
+	<div class="itemParamAddTemplate" style="display: none;">
+		<li class="param">
+			<ul>
+				<li><input class="easyui-addParam" style="width: 150px;"
+					name="group" />&nbsp; <a href="javascript:;" title="添加子项"
+					class="btn btn-xs btn-success addParam"> <i
+						class='glyphicon glyphicon-plus'></i>
+				</a></li>
+				<li><span>|-------</span><input style="width: 150px;"
+					class="easyui-delParam" name="param" />&nbsp; <a
+					href="javascript:;" title="删除"
+					class="btn btn-xs btn-pink ads_link delParam"> <i
+						class='glyphicon glyphicon-minus'></i>
+				</a></li>
+			</ul>
+		</li>
 	</div>
+
+
+
+
 
 	<!-- Modal -->
 	<div id="gridSystemModal" class="modal fade" tabindex="-1"
@@ -177,7 +271,140 @@
 	<script type="text/javascript" src="/statics/assets/layer/layer.js"></script>
 	<script type="text/javascript" src="/statics/js/H-ui.js"></script>
 	<script type="text/javascript" src="/statics/js/H-ui.admin.js"></script>
+
+
+
 	<script type="text/javascript">
+	
+/* 
+//页面加载完毕再执行 
+$(function(){
+  
+  alert(${isParent == false});
+  //如果是3级分类就去查询模板信息
+   if(${isParent == false}){
+    
+    	$.post("/itemCategory/findTemplate/"+${id},{},function(data){
+				if(data.status == "200"){
+		
+			  for(var x=0;x<data.data.length;x++){
+			   var  valueStr="<li class='param'><ul>"; 
+			   valueStr+="<li><input class='easyui-addParam' style='width: 150px;' name='group' value='"+data.data[x].group+"' />&nbsp; <a href='javascript:;' title='添加子项' class='btn btn-xs btn-success addParam'> <i class='glyphicon glyphicon-plus'></i></a></li> ";
+			    
+			     for(var i=0;i<data.data[x].params.length;i++){
+			        
+			      valueStr+="<li><span>|-------</span><input style='width: 150px;' class='easyui-delParam' name='param' value='"+data.data[x].params[i]+"' />&nbsp; <a href='javascript:;' title='删除' class='btn btn-xs btn-pink ads_link delParam'> <i class='glyphicon glyphicon-minus'></i>
+			
+			     }
+			    valueStr+="</ul>"
+			    
+			    $("#templateul").append(valueStr);
+			    
+			     }	  
+				  
+		    }else{
+				alert(data.msg);
+		 }
+	 });
+   }
+});
+	 */
+	
+	
+	//模板提交
+$("#templateulAdd").on("click",function(){
+   
+   var arr = [];
+  
+
+   //遍历  name=group的表单   
+   $("#templateul [name=group]").each(function(i,f){ 
+       
+       var g=[];//值
+       var key= this.value;//分组
+        //跟据当前这个  name=grpop的对象去查找当前对象所在的ul中  name=param的表单对象
+       var p = $(this).parentsUntil("ul").parent().find("[name=param]");
+        //获取到 对象后遍历每个name=param的对象 
+        p.each(function(a, b) {         
+        if(this.value.trim() == ""){
+          alert("请填写完整");
+         return false;
+        }
+         g.push(this.value);//取出它们的值。存入 g[] 数组
+        
+        });
+        
+        
+       if(key.trim()!= "" && g.length>0){//判断 分组， 和值是不是为空
+         arr.push({ //不是空则存入 数组
+          "group":key,
+          "params":g
+         });
+       }else{
+        return false;
+       }   
+   });
+      
+      
+      //添加操作
+      	var url = "/itemCategory/addTemplate/"+${id};
+			$.post(url,{"paramData":JSON.stringify(arr)},function(data){
+				if(data.status == "200"){
+				  alert("添加成功");	
+				}else{
+				alert(data.msg);
+				}
+			});
+			
+			
+});
+ 
+	
+	
+	
+	
+//模板重置
+$("#templateulRest").on("click",function(){
+
+  $("#templateul").empty();//清空ur中的内容
+
+});
+
+
+
+
+
+//添加分组	
+/* $("#group").on("click",function(){ 
+
+  var temple = $(".itemParamAddTemplate li").eq(0).clone();  //克隆一个<li>  <ul><li></li></ul></li>   
+			  
+			  $("#templateul").append(temple);  //将li添加到  id #templateul 的ul中 
+			  
+			  temple.find(".addParam").click(function(){//给 添加分组的li中的 <a>标签 添加   点击   添加子分类 事件
+			  
+				  var li = $(".itemParamAddTemplate li").eq(2).clone();//克隆到
+				
+				  li.find(".delParam").click(function(){
+						$(this).parent().remove();
+				  });
+				  li.appendTo($(this).parentsUntil("ul").parent());
+			  });
+			  
+			  temple.find(".delParam").click(function(){
+				  	$(this).parent().remove();
+			  });
+
+});
+ */
+
+$("#groupProject").on("click",function(){ 
+alert("----");
+
+  $("#templateform").html("<input  type='text' name='axc'/>");
+});
+		
+	
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -195,6 +422,100 @@ $(function(){
 		}
 	});
 });
+
+//图片选择
+/* $("#catelog").on("change",function(){
+    
+     var info=$(this).val();
+     
+     alert(info);
+     
+     $.ajax({
+			"type" : "get", //请求类型
+			"url" : "/itemCategory/addcate",
+			"data" : $("#formAdd").serialize(),
+			"datatype" : "JSON", //请求返回的数据类型
+			"success" : function(result) { //返回请求结果 	
+			   if(result.status == "200"){
+			     alert("添加成功");    
+			   //  parent.location.reload();//刷新页面			     
+			      $('#gridSystemModal').modal('hide');
+			      window.parent.loadInfo();//只刷新父页面
+			   }else{
+			    alert("添加失败");
+			   }			
+			},
+			error : function() {
+				alert("加载出错");
+			}
+		});
+     
+     
+     
+     
+     
+   
+}); */
+
+
+//上传图片
+
+$("#cateload").on("click",function(){
+
+  				 var formData = new FormData(document.getElementById("catelogfrom"));//表单id
+				$.ajax({
+				   url:"/itemCategory/uploadCatelog",
+				   type:'POST',
+				   data: formData,
+				   dataType: "json",
+				   async: false,
+				   cache: false,
+				   contentType: false,
+				   processData: false,
+				   success: function (data) {
+				   if(data.status =="200"){
+				     alert("上传成功!");
+				   }else{
+				   alert(data.msg);
+				   }
+				   },error:function(){
+				     alert("上传出错");
+				   }
+				   
+				   });
+});
+
+
+    //添加分组	
+$("#group").on("click",function(){ 
+
+  var temple = $(".itemParamAddTemplate li").eq(0).clone();  //克隆一个<li>  <ul><li></li></ul></li>   
+			  
+			  $("#templateul").append(temple);  //将li添加到  id #templateul 的ul中 
+			  
+			  temple.find(".addParam").on("click",function(){//给 添加分组的li中的 <a>标签 添加   点击   添加子分类 事件
+			  
+				  var li = $(".itemParamAddTemplate li").eq(2).clone();//克隆到
+				
+				  li.find(".delParam").click(function(){
+						$(this).parent().remove();
+				  });
+				  li.appendTo($(this).parentsUntil("ul").parent());
+			  });
+			  
+			  temple.find(".delParam").click(function(){
+				  	$(this).parent().remove();
+			  });
+
+});
+
+
+
+
+
+
+
+
 <!-- 添加-->
 $(".btn-warning").on("click",function(){
  <!-- 表单重置-->
@@ -331,5 +652,22 @@ $("#updateCate").on("click",function(){
 
 
 </script>
+
+
+<script type="text/javascript">
+ 
+  $(document).ready(function(){
+  
+  
+    
+
+   
+  
+  
+  });
+
+</script>
+
+
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.jubao.order.contorller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,13 +13,14 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.pojo.Cart;
 import com.common.utis.JubaoResult;
+import com.jubao.order.pojo.vo.OrderVo;
 import com.jubao.order.service.OrderService;
 import com.jubao.order.utils.AppOrderInfo;
-import com.jubao.order.utils.Cart;
 import com.jubao.pojo.UserAddress;
 
 @RequestMapping("order")
@@ -90,6 +92,28 @@ public class OrderContorller {
 	 * 跳转到选择支付页面
 	 * 
 	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+
+	@RequestMapping(value = "dfkOrder", produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
+	public String dfkOrder(@RequestParam("orderid") Long orderid) throws UnsupportedEncodingException {
+		AppOrderInfo info = null;
+		try {
+			info = orderService.dfkOrder(orderid);
+			info.setGoodsName(java.net.URLEncoder.encode(info.getGoodsName(), "UTF-8"));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "redirect:/order/order/selectZf.html?playerId=" + info.getOrderId() + "&&appId=" + info.getAppId()
+				+ "&&goodsPrice=" + getPrice(info.getGoodsPrice()) + "&&wx=1&&alipay=1&&succHide=1&&goodsName="
+				+ info.getGoodsName() + "&&goodsId=1";// 跳转到选择支付页面
+	}
+
+	/***
+	 * 跳转到选择支付页面
+	 * 
+	 * @return
 	 */
 
 	@RequestMapping(value = "selectZf.html", produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
@@ -98,32 +122,6 @@ public class OrderContorller {
 		return "/pay-page/ddpay";// 跳转到选择支付页面
 	}
 
-	/***
-	 * 支付成功回调页面
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 */
-	@RequestMapping("OK_goView")
-	public void OK_goView(HttpServletRequest request, HttpServletResponse response, AppOrderInfo appInfo)
-			throws IOException {
 
-		/*
-		 * String payTo = request.getParameter("payTo");// 支付方式: String orderId
-		 * = request.getParameter("orderId");// 支付订单号 String playerId =
-		 * request.getParameter("playerId");// 支付订单id String goodsId =
-		 * request.getParameter("goodsId");// 商品id String sign =
-		 * request.getParameter("sign");//
-		 */
-
-		System.out.println(appInfo.getPayTo() + "===" + appInfo.getOrderId() + "=====" + appInfo.getPlayerId() + "===="
-				+ appInfo.getGoodsId() + "===" + appInfo.getSign());
-
-		System.out.println("OKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOK");
-		// 更改订单状态
-       
-	}
 
 }

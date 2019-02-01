@@ -663,7 +663,6 @@
 				if (num > 0) {
 					return false;
 				} else {
-					alert("===");
 					var formData = new FormData(document.getElementById("addfrom")); //表单id
 					$.ajax({
 						url : "/Advertising/addAdvertising",

@@ -26,7 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%
 /*   response.sendRedirect("/itemCategory/toTest"); */
-  response.sendRedirect("/manager/login");
+/*   response.sendRedirect("http://119.29.195.240:8080/loginvalidate"); */
+response.sendRedirect("/manager/login");
  %>
   
   <body>

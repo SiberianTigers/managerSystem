@@ -17,6 +17,16 @@ public class ItemCategory {
     private Integer isParent;
     private Date created;
     private Date updated;
+    private String cateImg;//1º∂∑÷¿‡log
+    
+    
+    
+	public String getCateImg() {
+		return cateImg;
+	}
+	public void setCateImg(String cateImg) {
+		this.cateImg = cateImg;
+	}
 	public Integer getId() {
 		return id;
 	}

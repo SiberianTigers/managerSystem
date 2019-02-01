@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jubao.mapper.ProudctTemplateMapper">
+	<!-- 添加商品规格模板 -->
+	<insert id="addTemplate" parameterType="productTemplate">
+		INSERT INTO `jubao`.`productparameter_moban` (
+		`categoryid`,
+		`paramData`,
+		`createTime`,
+		`updateTime`
+		)
+		VALUES
+		(
+		#{categoryid},
+		#{paramData},
+		#{createTime},
+		#{updateTime}
+		);
+
+
+	</insert>
+
+	<!-- 查询出商品模板 -->
+	<select id="findTemplate" parameterType="_int" resultType="productTemplate">
+		SELECT
+		`id`,
+		`categoryid`,
+		`paramData`,
+		`createTime`,
+		`updateTime`
+		FROM
+		`jubao`.`productparameter_moban`
+		WHERE categoryid=#{cid}
+
+	</select>
+
+	<!-- 删模板 -->
+	<delete id="deleteTemplate" parameterType="_int">
+		DELETE
+		FROM
+		`jubao`.`productparameter_moban`
+		WHERE categoryid = #{cid};
+
+	</delete>
+
+
+</mapper>

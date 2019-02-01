@@ -61,4 +61,10 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 		return itemCategoryMapper.deleteCateChile(id);
 	}
 
+	@Override
+	public int updateCatelog(String cateImg, Integer id) {
+		// TODO Auto-generated method stub
+		return itemCategoryMapper.updateCatelog(cateImg, id);
+	}
+
 }

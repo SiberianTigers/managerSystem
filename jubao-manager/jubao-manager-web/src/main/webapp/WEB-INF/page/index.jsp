@@ -69,7 +69,7 @@
 		
 		
 		
-	})
+	});
 	
 
 
@@ -241,8 +241,8 @@
 
 
 	}
-    });
-});
+   
+
   $('#Exit_system').on('click', function(){
       layer.confirm('是否确定退出系统？', {
      btn: ['是','否'] ,//按钮
@@ -252,7 +252,6 @@
 	  window.location.href = "/loginvalidate";
         
     });
-});
 });
 function link_operating(name,title){
                 var cid = $(this).name;

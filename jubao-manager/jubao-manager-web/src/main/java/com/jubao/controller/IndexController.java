@@ -19,6 +19,7 @@ public class IndexController {
 	   */
 	 @RequestMapping(value="/login")
 	 public String managerLogin(){
+		 
 		 return "login";
 	 }
 	  

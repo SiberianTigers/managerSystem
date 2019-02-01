@@ -86,7 +86,7 @@
 										<c:when test="${cate.categoryStatus == 1 }">
 											<a onClick="member_stop(this,${cate.categoryId})"
 												href="javascript:;" title="停用"
-												class="btn btn-xs btn-success"}> <i
+												class="btn btn-xs btn-success"> <i
 												class='fa fa-check  bigger-120'></i>
 											</a>
 										</c:when>

@@ -37,5 +37,5 @@ public interface AdvertisingCategoryMapper {
 	public int deleteAdvertisingCategory(int id);
 	
 	
-	
+
 }

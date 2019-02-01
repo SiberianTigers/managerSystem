@@ -126,7 +126,7 @@
 	 //点击分类显示对应的分类信息
 	function zTreeOnClick(event, treeId, treeNode) {
 	///itemCategory/toTest
-      $("#testIframe").attr("src","/itemCategory/product-category-add?cateName="+treeNode.name+"&&id="+treeNode.id+"&&sort="+treeNode.sort+"&&isParent="+treeNode.isParent);
+      $("#testIframe").attr("src","/itemCategory/product-category-add?cateName="+treeNode.name+"&&id="+treeNode.id+"&&sort="+treeNode.sort+"&&isParent="+treeNode.isParent+"&&parentId="+treeNode.pid+"&&cateImg="+treeNode.cateLog);
    //   $("#testIframe").location.href="itemCategory/toTest";
     };
 	

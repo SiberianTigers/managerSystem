@@ -3,7 +3,7 @@ package com.jubao.order.pojo;
 public class OrderDetail {
 	 private Integer id;//主键
 	  private Long itemid;//商品id
-	  private Integer orderid;//订单id
+	  private Long orderid;//订单id
 	  private Integer num;//数量
 	  private String title;//商品标题
 	  private long price;//单价
@@ -30,11 +30,10 @@ public class OrderDetail {
 	public void setItemid(Long itemid) {
 		this.itemid = itemid;
 	}
- 
-	public Integer getOrderid() {
+	public Long getOrderid() {
 		return orderid;
 	}
-	public void setOrderid(Integer orderid) {
+	public void setOrderid(Long orderid) {
 		this.orderid = orderid;
 	}
 	public Integer getNum() {

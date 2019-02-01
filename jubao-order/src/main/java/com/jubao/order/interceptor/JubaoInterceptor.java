@@ -25,21 +25,20 @@ public class JubaoInterceptor extends HandlerInterceptorAdapter {
 
 		System.out.println("-----订单拦截器----------");
 		// TODO Auto-generated method stu
-		
-		  try { 
 
-		 // 去调用验证redis中的用户信息是否存在，判断用户是否登陆 User user =
-			User user=orderService.checkLogin(request);
-		   if (user == null) {
-		      response.sendRedirect("http://localhost:8086/login/userlogin/"+
-						"tologin?callBackUrl=" + request.getRequestURI());
-		     return false; 
-		    }
-		 
-		 }
-		  catch (Exception e) { // TODO: handle exception e.printStackTrace();
-		 }
-	
+		try {
+
+			// 去调用验证redis中的用户信息是否存在，判断用户是否登陆 User user =
+			User user = orderService.checkLogin(request);
+			if (user == null) {
+				response.sendRedirect("http://localhost:8086/login/userlogin/" + "tologin?callBackUrl=" + request.getRequestURL());
+				return false;
+			}
+
+		} catch (Exception e) { // TODO: handle exception e.printStackTrace();
+			e.printStackTrace();
+		}
+
 		// 放行
 		return true;
 	}

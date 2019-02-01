@@ -53,7 +53,7 @@
 	<!-- 拦截器配置 -->
 	 <mvc:interceptors>
 	    <mvc:interceptor>
-	     <mvc:mapping path="/order/*"/>
+	     <mvc:mapping path="/order/order/*"/>
 	      <bean  class="com.jubao.order.interceptor.JubaoInterceptor">
 	      </bean>
 	     </mvc:interceptor>

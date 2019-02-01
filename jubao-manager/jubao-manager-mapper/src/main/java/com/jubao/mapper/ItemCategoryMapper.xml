@@ -26,11 +26,12 @@
 		`sort_order`,
 		`is_parent`,
 		`created`,
-		`updated`
+		`updated`,
+		 cateImg
 		from
 		`jubao`.`itemcat`
 		where
-		parent_id=#{id} AND `status` =1
+		parent_id=#{id} AND `status` =1  ORDER BY sort_order 
 
 	</select>
 
@@ -88,5 +89,11 @@
 <select id="selectSortIndex" parameterType="_int" resultType="Integer">
 SELECT  MAX(sort_order) FROM `itemcat` WHERE parent_id=#{id}
 </select>
+
+
+<!-- 修改图片log -->
+	<update id="updateCatelog">
+	  update itemcat set cateImg=#{cateImg} where id=#{id}
+	</update>
 
 </mapper>
