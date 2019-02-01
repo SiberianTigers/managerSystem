@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 				String userStr = jedisClient.get(Constants.SESSION_USER + ":" + token);
 				if (!StringUtils.isBlank(userStr)) {
 					User user = JSON.parseObject(userStr, User.class);
+				    request.getSession().setAttribute("index",1);
 					return user;
 				}
 			}

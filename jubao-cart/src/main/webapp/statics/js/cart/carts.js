@@ -132,7 +132,7 @@ function sesttlement1() {
 //切换查看购物车页面
 function sesttlement2() {
 	$.ajax({
-		url : "/cart/cart/confirmItemOrder",
+		url : "/cart/cart/cartItemfush",
 		type : "get",
 		datatype : "html",
 		success : function(jsonstr) {
@@ -145,56 +145,68 @@ function sesttlement2() {
 
 
 /*减少数量*/
-function subQuantity(obj, entityid, itemType) {
-	var quantity = Number(getPCount(jq(obj))) - 1;
-
-	if (quantity == 0) {
+function subQuantity(obj) {
+	var quantity = Number(getPCount($(obj))) - 1; //取得所购商品数量
+	if (quantity <= 0) { //数量为0时  , 改为1
 		quantity = 1;
 	}
-	modifyCart(entityid, quantity, jq(obj), itemType);
+	var objx = $(obj).parent().find(".car_ipt"); //取到所购商品
+	var pid = $(objx).attr("pid"); //取到商品id
+	var itemType = $(objx).attr("itemType"); //取到商品类别
+	var sid = $(objx).attr("sid"); //取到商品的店铺id
+
+	modifyCart(pid, quantity, itemType, sid);
 
 }
 
+
 /*添加数量*/
-function addQuantity(obj, entityid, stock, itemType) {
-	var quantity = Number(getPCount(jq(obj))) + 1;
-	if (stock < quantity) {
-		showMessage("商品数量不足");
+function addQuantity(obj) {
+	var objx = $(obj).parent().find(".car_ipt"); //根据当前对象到父节点去查询 指定类的节点 得到该对象
+	var quantity = Number(getPCount($(obj))) + 1; //获取当前商品数量
+	var stock = $(objx).attr("num"); //商品总数量   //根据得到的对象去取节点上的属性值  名称为num的 该属性为商品的库存总数量
+
+	if (stock < quantity) { //商品库存总数比较  当前所购的商品数量  如果总数小于所购数则提示   
+		alert("商品数量不足");
 		return;
 	}
-	modifyCart(entityid, quantity, jq(obj), itemType);
+
+	var pid = $(objx).attr("pid"); //取得该节点的 商品id属性
+	var itemType = $(objx).attr("itemType"); //取得该节点上的商品规格
+	var sid = $(objx).attr("sid"); //取得商品的店铺id
+
+	//调用修改方法修改实时修改所购商品数量
+	modifyCart(pid, quantity, itemType, sid);
 
 }
 
 //获取表单数量值
-function getPCount(obj) {
+function getPCount(obj) { //点击增加或减少，根据点击的按钮对象去父级节点查询.car_ipt的存放 所购商品数量  返回商品所购量
 	return obj.parent().find(".car_ipt").val();
 }
-;
 
-//修改表单数据            //商品数量    id     需修改数量的对象
-function modifyCart(entityid, quantity, obj, itemType) {
+//修改表单数据            pid       //商品数量    商品的规格   店铺id
+function modifyCart(entityid, quantity, itemType, sid) {
 	$.ajax({
 		url : "/cart/cart/updateCartItem",
+		type : "post",
 		data : {
 			"pid" : entityid,
 			"num" : quantity,
-			"typeItem" : itemType
+			"typeItem" : itemType,
+			"sid" : sid
 		},
-		dataType : "json",
-		success : function(result) {
-			if (result.status == 200) {
-				obj.parent().find(".car_ipt").val(quantity);
-				$("#sumPrice").empty(); //清除总价格
-				$("#sumPrice").append("商品总价：<b style='font-size:22px; color:#ff4e00;'>￥" + result.data.price + "</b>")
-				sesttlement1();
-
+		datatype : "json",
+		success : function(jsonstr) {
+			if (jsonstr.status == 200) {
+				sesttlement2(); //调用刷新购物车,实时 更新修改状态。
 			} else {
-				alert(result.msg);
+				alert(jsonstr.msg);
 			}
-
 		}
 	});
+
+
 
 }
 
@@ -210,17 +222,18 @@ function addressAddClass() {
 
 }
 
-var del = 0;
 var itemtype = "";
-var obj;
+var pid;
+var sid;
 /***
  * 删除前奏
  */
-function dele(eid, itemType, delobj) {
-	del = eid;
-	itemtype = itemType;
-	obj = delobj;
-	alert(obj.parent().parent().parent().text());
+function dele(obj) {
+	var objx = $(obj).parent().parent().find(".car_ipt");
+
+	pid = $(objx).attr("pid"); //取得该节点的 商品id属性
+	itemtype = $(objx).attr("itemType"); //取得该节点上的商品规格
+	sid = $(objx).attr("sid"); //取得商品的店铺id
 	ShowDiv('MyDiv', 'fade');
 
 }
@@ -230,17 +243,19 @@ function dele(eid, itemType, delobj) {
 function deletex() {
 	$.ajax({
 		url : "/cart/cart/deleteCartItem",
+		type:"post",
 		data : {
-			"pid" : del,
-			"typeItem" : itemtype
+			"pid" : pid,
+			"typeItem" : itemtype,
+			"sid" : sid
 		},
-		dataType : "json",
+		datatype : "json",
 		success : function(result) {
 			if (result.status == 200) {
-				obj.parent().parent().remove(); //删除节点
 				CloseDiv('MyDiv', 'fade'); //关闭窗口
+				sesttlement2(); //调用刷新购物车,实时 更新修改状态。
 			} else {
-				showMessage(result.message);
+				showMessage(result.msg);
 			}
 
 		}

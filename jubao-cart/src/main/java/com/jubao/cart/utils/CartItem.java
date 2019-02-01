@@ -1,8 +1,5 @@
 package com.jubao.cart.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import com.jubao.pojo.util.Item;
 
 /***
@@ -18,26 +15,11 @@ public class CartItem {
 	private int num;// 数量
 
 	private double price;// 价格
-	
-	private String itemType;//商品规格
 
-
-	public CartItem(Item item, int num, String itemType) {
+	public CartItem(Item item, int num) {
 		super();
 		this.item = item;
-		this.num = num;	
-		this.itemType=itemType;
-	}
-
-	
-	
-	public String getItemType() {
-		return itemType;
-	}
-
-	public void setItemType(String itemType) {
-		
-		this.itemType = itemType;
+		this.num = num;
 	}
 
 	public Item getItem() {
@@ -53,20 +35,37 @@ public class CartItem {
 	}
 
 	public void setNum(int num) {
-		
+
 		this.num = num;
 		getPrice();
 	}
-   
-	public double getPrice() {//计算价格
+
+	public double getPrice() {// 计算价格
 		if (item != null) {
-		 this.price = item.getPrice() * num;
+			this.price = item.getPrice() * num;
 		}
 		return this.price;
 	}
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (!(obj instanceof Item)) {
+			return false;
+		}
+		Item additem = (Item) obj;// 将传递进来的对象转为item商品对象
+
+		System.out.println("-additem--比较--");
+
+		System.out.println(((additem.getId().intValue() == this.item.getId().intValue())
+				&& (additem.getItemType().equals(this.item.getItemType()))) == true ? true : false);
+
+		return ((additem.getId().intValue() == this.item.getId().intValue())
+				&& (additem.getItemType().equals(this.item.getItemType()))) == true ? true : false;
 	}
 
 }

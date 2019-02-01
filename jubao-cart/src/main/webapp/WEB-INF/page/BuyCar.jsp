@@ -6,18 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!--[if IE 6]>
-    <script src="js/iepng.js" type="text/javascript"></script>
-        <script type="text/javascript">
-           EvPNG.fix('div, ul, img, li, input, a'); 
-        </script>
-    <![endif]-->
-     <!-- 弹出层js -->
-  <script type="text/javascript" src="/statics/js/shade.js"></script>
-  <script type="text/javascript" src="/statics/js/cart/carts.js"> </script>
-  <script type="text/javascript" src="/statics/js/cart/Order.js"> </script>
-    
-<title>尤洪</title>
+
+<title>我的购物车</title>
 </head>
 <body>  
 <!--Begin Header Begin-->
@@ -28,18 +18,13 @@
 <!--Begin Menu Begin-->
 
  <div id="searchBar">
-<%--  <%@include file="../../common/searcheBar.jsp" %> --%>
-  </div>
-<%--   <%@include file="../../common/categoryBar1.jsp" %> --%>
-<!--End Menu End--> 
 
-  
+  </div>
 
  <div id="myCart">
-    
+        
          <%@include file="BuyCarInfo.jsp" %>
-     
-     <%--  <%@include file="BuyCarInfo2.jsp" %> --%>
+ 
  </div>
 
 
@@ -50,11 +35,10 @@
 
     <!--End Footer End -->    
 
-
+   <!-- 弹出层js -->
+  <script type="text/javascript" src="/statics/js/shade.js"></script>
+  <script type="text/javascript" src="/statics/js/cart/carts.js"> </script>
+  <script type="text/javascript" src="/statics/js/cart/Order.js"> </script>
 </body>
 
-
-<!--[if IE 6]>
-<script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 </html>

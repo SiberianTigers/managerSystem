@@ -2,32 +2,18 @@
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="/statics/css/style.css">
 <script type="text/javascript" src="/statics/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript"
+<!-- <script type="text/javascript"
 	src="/statics/js/jquery-1.11.1.min_044d0927.js"></script>
 <script type="text/javascript"
-	src="/statics/js/jquery.bxslider_e88acd1b.js"></script>
+	src="/statics/js/jquery.bxslider_e88acd1b.js"></script> -->
 
-  <script type="text/javascript" src="/statics/js/jquery-1.8.2.min.js"></script>
+ <!--  <script type="text/javascript" src="/statics/js/jquery-1.8.2.min.js"></script>
 
 <script type="text/javascript" src="/statics/js/menu.js"></script>
 
 <script type="text/javascript" src="/statics/js/select.js"></script>
 
-<script type="text/javascript" src="/statics/js/lrscroll.js"></script>
-<!-- 
-<script type="text/javascript" src="/statics/js/iban.js"></script>
-<script type="text/javascript" src="/statics/js/fban.js"></script>
-<script type="text/javascript" src="/statics/js/f_ban.js"></script>
-<script type="text/javascript" src="/statics/js/mban.js"></script>
-<script type="text/javascript" src="/statics/js/bban.js"></script>
-<script type="text/javascript" src="/statics/js/hban.js"></script>
-<script type="text/javascript" src="/statics/js/tban.js"></script>
-<script type="text/javascript" src="/statics/js/lrscroll_1.js"></script> -->
-<!-- 
- <script type="text/javascript" src="/statics/locajs/jquery-1.6.4.js"></script>
- <script type="text/javascript" src="/statics/locajs/jquery_cookie.js"></script>
-  <script type="text/javascript" src="/statics/locajs/header.js"></script> -->
-
+<script type="text/javascript" src="/statics/js/lrscroll.js"></script> -->
 <script type="text/javascript">
 	//搜索非空验证
 	function checkInfo() {
@@ -112,7 +98,7 @@
 		<a href="http://localhost:8083"><img src="/statics/images/jbw.png" /></a>
 	</div>
 	<div class="search">
-		<form action="/search/search_product.html" method="get"
+		<form action="http://www.pytiger.cn/search/search_product.html" method="get"
 			onsubmit="return checkInfo()" id="searchform">
 			<input type="hidden" name="pageIndex" value="1" id="pageIndex" /> <input
 				type="text" id="queryString" name="queryString" class="s_ipt"
@@ -128,29 +114,30 @@
 		</div>
 		<div class="car_bg">
 			<!--Begin 购物车未登录 Begin-->
-			<div class="un_login">
+		<!-- 	<div class="un_login">
 				还未登录！<a href="Login.html" style="color:#ff4e00;">马上登录</a> 查看购物车！
-			</div>
+			</div> -->
 			<!--End 购物车未登录 End-->
 			<!--Begin 购物车已登录 Begin-->
 			<ul class="cars">
-			   <c:forEach items="${cart.itemList }" var="cart">
+		<c:forEach items="${cart.cartMap }" var="store">	
+			   <c:forEach items="${store.value }" var="cart">
 			    <li>
 				<div class='img'>
-				<a href='#'><img src='http://119.29.195.240${cart.item.image}' width='58' height='58' /></a></div>
+				<a href='#'><img src='${cart.item.image}' width='58' height='58' /></a></div>
 				<div class='name'>
 				<a href='#'>${cart.item.title}</a></div>
 				<div class='price'><font color='#ff4e00'>${cart.price}</font> ${cart.num}</div>
 			   </li>
 			 
 			   </c:forEach>
-					
+			</c:forEach>		
 			</ul>
 			<div class="price_sum">
 				共计&nbsp; <font color="#ff4e00">￥</font><span>${cart.price }</span>
 			</div>
 			<div class="price_a">
-				<a href="#">去购物车结算</a>
+				<a href="localhost:8087">去购物车结算</a>
 			</div>
 			<!--End 购物车已登录 End-->
 		</div>

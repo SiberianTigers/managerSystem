@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.common.utis.JubaoResult;
 import com.jubao.cart.utils.Cart;
-import com.jubao.pojo.util.Item;
+
 
 public interface CartService {
 
@@ -23,7 +23,7 @@ public interface CartService {
       * @param request
       * @return
       */
-	public Cart getCart(HttpServletRequest request);
+	public Cart getCart(HttpServletRequest request,HttpServletResponse response);
 	
 	/***
 	 * 修改购物车项 数量
@@ -31,7 +31,7 @@ public interface CartService {
 	 * @param num
 	 * @return
 	 */
-	public JubaoResult updateCartItem(long pid,int num,String itemType,HttpServletRequest request,HttpServletResponse response);
+	public JubaoResult updateCartItem(long pid,int num,String itemType,long sid,HttpServletRequest request,HttpServletResponse response);
 	
 	
 	/***
@@ -40,5 +40,5 @@ public interface CartService {
 	 * @param num
 	 * @return
 	 */
-	public JubaoResult deleteCartItem(long pid,String itemType,HttpServletRequest request,HttpServletResponse response);
+	public JubaoResult deleteCartItem(long pid,String itemType,long sid,HttpServletRequest request,HttpServletResponse response);
 }

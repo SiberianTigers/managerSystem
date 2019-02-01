@@ -18,47 +18,62 @@
 		<property name="url" value="${url}" />
 		<property name="username" value="${uname}" />
 		<property name="password" value="${password}" />
-		<property name="initialSize" value="${initialSize}" /><!-- 初始化连接数量 
-			5 -->
-		<property name="maxActive" value="${maxActive}" /><!-- 连接最大活跃数量 
-			100 -->
-		<property name="maxIdle" value="${maxIdle}" /><!-- 连接最大空闲数量 50 -->
-		<property name="minIdle" value="${minIdle}" /><!-- 连接最小活跃数量 10 -->
 
-		<property name="maxWait" value="${maxWait}" /><!-- 连接最大 等待时间 100 -->
-		<!-- removeAbandonedTimeout 回收空闲连接的间隔时间 -->
-		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
-		<!--removeAbandoned 开启空闲连接回收机制， 当前空闲连接数 小于 2 &&（当前活动数>最大活动数3） -->
-		<property name="removeAbandoned" value="${removeAbandoned}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="1" />
+		<property name="minIdle" value="1" />
+		<property name="maxActive" value="20" />
 
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
 
-		<!--=================== sql心跳：保证连接池中链接是真实有效的连接 ========================= -->
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
 
-		<!-- 指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除. -->
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+		<property name="validationQuery" value="SELECT 1" />
+
+		<!-- 如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效 -->
 		<property name="testWhileIdle" value="true" />
 
-		<!-- 每30秒运行一次空闲连接回收器，配置timeBetweenEvictionRunsMillis = "30000"后， 每30秒运行一次空闲连接回收器（独立线程）。并每次检查3个连接， 
-			如果连接空闲时间超过30分钟就销毁。销毁连接后，连接数量就少了， 如果小于minIdle(最小空闲数)数量， 就新建连接，维护数量不少于minIdle(最小空闲)，新老更替。 -->
-		<property name="timeBetweenEvictionRunsMillis" value="300000" />    <!-- 60000毫秒  == 60秒   -->
-
-		<!-- 借出连接时不要测试，否则很影响性能。一定要配置， 因为它的默认值是true。false表示每次从连接池中取出连接时， 不需要执行validationQuery 
-			= "SELECT 1" 中的SQL进行测试。 若配置为true,对性能有非常大的影响，性能会下降7-10倍。 -->
-		<property name="testOnBorrow" value="false" />
-
-		<!-- 在进行returnwObject处理时 会对拿到的连接进行效验false -->
+		<!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+		<property name="testOnBorrow" value="true" />
 		<property name="testOnReturn" value="false" />
 
-		<!-- 效验使用的sql语句 validationQuery 复杂的效验sql影响性能 -->
-		<property name="validationQuery" value="select 1" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<!-- 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。 -->
+		<property name="poolPreparedStatements" value="false" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="20" />
 
-		<!-- 配置每次效验连接的数量 一般等于maxActive -->
-		<property name="numTestsPerEvictionRun" value="${maxActive}" />
+		<!-- 这里配置提交方式，默认就是TRUE，可以不用配置 -->
+		<property name="defaultAutoCommit" value="true" />
+
+		<!-- 合并多个DruidDataSource的监控数据 -->
+		<property name="useGlobalDataSourceStat" value="true" />
+
+		<!-- 开启Druid的监控统计功能,StatFilter可以和其他的Filter配置使用 -->
+	<!-- 	<property name="filters" value="stat,log4j2" /> -->
+
+		<!-- proxyFilters属性配置,通过bean的方式配置 -->
+	<!-- 	<property name="proxyFilters">
+			<list>
+				<ref bean="log-filter" />
+			</list>
+		</property> -->
+
 	</bean>
 
+  
 
 
 
-	<!-- 配置sqlsessionFactory   有了会话工厂就能得到一个 session会话 -->
+
+
+	<!-- 配置sqlsessionFactory 有了会话工厂就能得到一个 session会话 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
@@ -66,11 +81,11 @@
 
 
 
-	
-	
-	<!-- 配置Mapper扫描包  s扫描接口  和xml生产代理对象 -->
+
+
+	<!-- 配置Mapper扫描包 s扫描接口 和xml生产代理对象 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	 <property name="basePackage" value="com.jubao.mapper,com.jubao.cart.mapper"></property>
+		<property name="basePackage" value="com.jubao.mapper,com.jubao.cart.mapper"></property>
 	</bean>
-	
+
 </beans>
