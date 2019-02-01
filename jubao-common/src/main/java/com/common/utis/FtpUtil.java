@@ -67,6 +67,7 @@ public class FtpUtil {
 					}
 				}
 			}
+	
 			//设置上传文件的类型为二进制类型
 			ftp.setFileType(FTP.BINARY_FILE_TYPE);
 			//上传文件
@@ -141,10 +142,12 @@ public class FtpUtil {
 		return result;
 	}
 	
+	
+	
 	public static void main(String[] args) {
 		try {  
 	        FileInputStream in=new FileInputStream(new File("F://apache-tomcat-8.5.30//webapps//ROOT//tomcat.png"));  
-	        boolean flag = uploadFile("119.29.195.240", 21, "ftpuser", "10010.com", "/home/ftpuser/img","/2018/10/07", "gaigeming.jpg", in);  
+	        boolean flag = uploadFile("119.29.195.240", 21, "ftpuser", "10010.com", "/home/ftpuser/img","/2018/12/08", "gaigeming1.jpg", in);  
 	        System.out.println(flag);  
 	    } catch (FileNotFoundException e) {  
 	        e.printStackTrace();  

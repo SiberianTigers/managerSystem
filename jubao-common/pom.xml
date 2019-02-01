@@ -58,9 +58,7 @@
     <version>1.2.47</version>
 </dependency>
 
-           
           
-	
 			<!-- servlet相关 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -72,5 +70,6 @@
 			<artifactId>jsp-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+			
 	</dependencies>
 </project>

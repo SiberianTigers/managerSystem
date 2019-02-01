@@ -21,7 +21,7 @@ public class JubaoResult {
 
     // 响应中的数据
     private Object data;
-
+    
     public static JubaoResult build(Integer status, String msg, Object data) {
         return new JubaoResult(status, msg, data);
     }
